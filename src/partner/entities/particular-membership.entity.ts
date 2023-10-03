@@ -7,7 +7,7 @@ import { Partner } from "./partner.entity";
 @Entity('particular_memberships')
 export class ParticularMembership extends Persistence{
 
-    @ManyToOne(() => Membership, { eager: true })
+    @ManyToOne(() => Membership, {cascade: true, eager: true, nullable: false})
     @JoinColumn({ name: 'id_membership' })
     membership: Membership;
 
@@ -17,8 +17,8 @@ export class ParticularMembership extends Persistence{
     @Column({ name: 'value', type: 'double' })
     value: number;
 
-    @ManyToOne(() => Partner, { eager: true })
-    @JoinColumn({ name: 'id_partner' })
+    @ManyToOne(() => Partner, (partner) => partner.memberships, {nullable: false})
+    @JoinColumn({ name: 'id_partner'})
     partner: Partner;
 
 

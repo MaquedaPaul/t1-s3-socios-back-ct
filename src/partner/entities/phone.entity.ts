@@ -13,7 +13,8 @@ export class Phone extends Persistence {
 	@Column({ type: 'enum', enum: ['FAX', 'OFICINA', 'CELULAR'] })
   	type: string;
 
-	@ManyToOne(() => Partner, (partner) => partner.phones)
+	@ManyToOne(() => Partner, (partner) => partner.phones, {nullable: false})
+    @JoinColumn({ name: 'id_parner' })
 	partner: Partner;
 
 	constructor(areaCode: string, number: string, type: string){

@@ -4,14 +4,18 @@ import {   Entity,
   JoinColumn,
   OneToMany,
   ManyToMany,
-  ManyToOne,
+  JoinTable
  } from "typeorm";
-import { ParticularMembership } from "./particular-membership.entity";
-import { Category } from "./category.entity";
 import { Persistence } from "./persistence.entity";
-import { Phone } from "./phone.entity";
-import { PartnerEmail } from "./email.entity";
-import { PartnerWebsite } from "./website.entity";
+import { 
+    Category, 
+    ParticularMembership, 
+    PartnerEmail, 
+    PartnerWebsite, 
+    Phone, 
+    Location
+} from "./package.entities";
+
 
 export enum PartnerType {
   TYPE1 = 'PLENARY',
@@ -30,27 +34,28 @@ export class Partner extends Persistence {
   @Column({ name: 'image' })
   image: string;
 
-  @OneToOne(() => Location)
-  @JoinColumn({ name: 'id_location', referencedColumnName: 'id' })
+  @OneToOne(() => Location, {cascade: true, eager: true, nullable: false})
+  @JoinColumn({name: 'id_location'})
   location: Location;
 
-  @OneToMany(() => ParticularMembership, (membership) => membership.partner)
+  @OneToMany(() => ParticularMembership, (membership) => membership.partner, {cascade: true, eager: true})
   memberships: ParticularMembership[];
 
   @Column({ type: 'enum', enum: PartnerType })
   partnerType: PartnerType;
 
-  @ManyToMany(() => Category)
+  @ManyToMany(() => Category, (category) => category.partners, {cascade: true, eager: true})
+  @JoinTable({name: 'partners_categories', joinColumn: {name: 'id_partner'}, inverseJoinColumn: {name: 'id_category'}})
   categories: Category[];
 
-  @OneToMany(() => Phone, (phone) => phone.partner)
+  @OneToMany(() => Phone, (phone) => phone.partner, {cascade: true, eager: true})
   phones: Phone[];
     
 
-  @OneToMany(() => PartnerEmail, (email) => email.partner)
+  @OneToMany(() => PartnerEmail, (email) => email.partner, {cascade: true, eager: true})
   emails: PartnerEmail[];
 
-  @OneToMany(() => PartnerWebsite, (website) => website.partner)
+  @OneToMany(() => PartnerWebsite, (website) => website.partner, {cascade: true, eager: true})
   websites: PartnerWebsite[];
 
 

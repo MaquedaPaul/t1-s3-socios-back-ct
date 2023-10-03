@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { Persistence } from "./persistence.entity";
 import { Partner } from "./partner.entity";
 
@@ -10,7 +10,8 @@ export class PartnerEmail extends Persistence{
     email: string;
 
     
-    @ManyToOne(() => Partner, (partner) => partner.emails)
+    @ManyToOne(() => Partner, (partner) => partner.emails, {nullable: false})
+    @JoinColumn({ name: 'id_parner' })
     partner: Partner;
 
     constructor(email: string){

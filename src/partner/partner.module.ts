@@ -6,13 +6,13 @@ import { MembershipService } from './services/membership.service';
 import { CategoryController } from './controllers/category.controller';
 import { MembershipController } from './controllers/membership.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmailEntity, LocationEntity, WebsiteEntity } from './entities/package.entities';
+import { Category, Membership, ParticularMembership, Partner, PartnerEmail, PartnerWebsite, Phone, Location } from './entities/package.entities';
 
 @Module({
   controllers: [PartnerController, CategoryController, MembershipController],
   providers: [PartnerService, CategoryService, MembershipService],
   imports: [
-    TypeOrmModule.forFeature([LocationEntity, EmailEntity, WebsiteEntity]),
+    TypeOrmModule.forFeature([Category, Membership, Partner, ParticularMembership, Phone, PartnerEmail, PartnerWebsite, Location]),
   ],
 })
 export class PartnerModule {}
