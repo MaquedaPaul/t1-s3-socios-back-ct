@@ -3,8 +3,8 @@ import { Persistence } from "./persistence.entity";
 
 // import { PartnerEntity, Partner } from './partner.entity';
 
-@Entity('emails')    
-export class Email extends Persistence{
+@Entity('partners-emails')    
+export class PartnerEmail extends Persistence{
 
     @Column({ name: 'email', type: 'varchar' })
     email: string;
