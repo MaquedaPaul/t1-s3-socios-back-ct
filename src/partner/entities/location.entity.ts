@@ -2,25 +2,25 @@ import { Column, Entity, OneToOne } from "typeorm";
 import { Persistence } from "./persistence.entity";
 // import { PartnerEntity } from "./partner.entity";
 
-@Entity('location')
+@Entity('locations')
 export class Location extends Persistence {
     
-    @Column('text')
+    @Column('varchar')
     street: string;
 
-    @Column('text')
+    @Column('varchar')
     streetAdress: string;
 
-    @Column('text')
+    @Column('varchar')
     floor: string;
 
-    @Column('text')
+    @Column('varchar')
     apartment: string;
 
-    @Column('text')
+    @Column('varchar')
     department: string;
 
-    @Column('text')
+    @Column('varchar')
     province: string;
     
     constructor(street: string, streetAdress: string, floor: string, apartment: string, department: string, province: string){

@@ -2,8 +2,8 @@ import { Column, Entity } from "typeorm";
 import { Persistence } from "./persistence.entity";
 // import { PartnerEntity, Partner } from './partner.entity';
 
-@Entity('website')    
-export class Website extends Persistence{
+@Entity('partners-websites')    
+export class PartnersWebsite extends Persistence{
 
     @Column('text')
     website: string;
