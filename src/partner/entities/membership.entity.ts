@@ -2,7 +2,7 @@ import { Entity, Column } from 'typeorm';
 import { Persistence } from './persistence.entity';
 
 @Entity('memberships')
-export class MembershipEntity extends Persistence {
+export class Membership extends Persistence {
 
     @Column({ name: 'name', type: 'varchar' })
     name: string;

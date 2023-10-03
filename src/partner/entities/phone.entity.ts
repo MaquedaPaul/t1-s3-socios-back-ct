@@ -1,1 +1,1 @@
-export class PhoneEntity {}
+export class Phone {}

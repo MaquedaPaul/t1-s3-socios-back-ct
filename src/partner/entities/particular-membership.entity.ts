@@ -1,15 +1,15 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { Persistence } from "./persistence.entity";
-import { MembershipEntity } from "./membership.entity";
+import { Membership } from "./membership.entity";
 import { Partner } from "./partner.entity";
 
 
 @Entity('particular_memberships')
-export class ParticularMembershipEntity extends Persistence{
+export class ParticularMembership extends Persistence{
 
-    @ManyToOne(() => MembershipEntity, { eager: true })
+    @ManyToOne(() => Membership, { eager: true })
     @JoinColumn({ name: 'id_membership' })
-    membership: MembershipEntity;
+    membership: Membership;
 
     @Column({ name: 'start_date', type: 'date' })
     startDate: Date;
@@ -34,7 +34,7 @@ export class ParticularMembershipEntity extends Persistence{
     }
 
 
-    constructor(membership: MembershipEntity, startDate: Date, value: number) {
+    constructor(membership: Membership, startDate: Date, value: number) {
         super();
         this.membership = membership;
         this.startDate = startDate;
