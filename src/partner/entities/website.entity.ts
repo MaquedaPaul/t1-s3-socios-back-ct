@@ -3,7 +3,7 @@ import { Persistence } from "./persistence.entity";
 // import { PartnerEntity, Partner } from './partner.entity';
 
 @Entity('website')    
-export class WebsiteEntity extends Persistence{
+export class Website extends Persistence{
 
     @Column('text')
     website: string;

@@ -2,7 +2,7 @@ import { Column, Entity,ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "ty
 import { Persistence } from "./persistence.entity";
 
 @Entity('phone')
-export class PhoneEntity extends Persistence {
+export class Phone extends Persistence {
 	@Column('text')
 	areaCode: string;
 

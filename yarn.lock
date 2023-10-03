@@ -718,7 +718,9 @@
     webpack "5.88.2"
     webpack-node-externals "3.0.0"
 
+
 "@nestjs/common@^10.0.0", "@nestjs/common@^10.2.6", "@nestjs/common@^8.0.0 || ^9.0.0 || ^10.0.0":
+
   version "10.2.6"
   resolved "https://registry.npmjs.org/@nestjs/common/-/common-10.2.6.tgz"
   integrity sha512-ma8R7n+FXsWM4XF9QXjjrsRceyRzid/xKmNKVOa/sTJntkVG8lL71BHBEfjtFvO6EJUqjs/15LbDc0iaN5nCwA==
@@ -738,6 +740,7 @@
     uuid "9.0.0"
 
 "@nestjs/core@^10.0.0", "@nestjs/core@^10.2.6", "@nestjs/core@^8.0.0 || ^9.0.0 || ^10.0.0":
+
   version "10.2.6"
   resolved "https://registry.npmjs.org/@nestjs/core/-/core-10.2.6.tgz"
   integrity sha512-oGQ2CoBeFRT7egG47MFqS89xlXBTIRZBkRpKRTPMftEfL1RMXhXIcIIaGfzp11wx6qxrBVxBXpVLM09oaqHpaQ==
