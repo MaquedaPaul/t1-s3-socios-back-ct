@@ -1,9 +1,10 @@
-import { Email } from "./email.entity";
+import { PartnerEmail } from "./email.entity";
 import { Location } from "./location.entity";
-import { Website } from './website.entity';
+import { PartnerWebsite } from './website.entity';
+import { Partner } from './partner.entity';
 
 export {
     Location,
-    Email,
-    Website
+    PartnerEmail,
+    PartnerWebsite
 }

@@ -1,16 +1,16 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { Persistence } from "./persistence.entity";
+import { Partner } from "./partner.entity";
 // import { PartnerEntity, Partner } from './partner.entity';
 
 @Entity('partners-websites')    
-export class PartnersWebsite extends Persistence{
+export class PartnerWebsite extends Persistence{
 
     @Column('text')
     website: string;
 
-    // Se debe crear bien la clase partner
-    // @ManyToOne(() => PartnerEntity, (partner) => partner.websites)
-    // partner: PartnerEntity;
+    @ManyToOne(() => Partner, (partner) => partner.websites)
+    partner: Partner;
 
     constructor(email: string){
         super();
