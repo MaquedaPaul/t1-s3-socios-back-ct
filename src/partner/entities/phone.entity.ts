@@ -3,9 +3,6 @@ import { Persistence } from "./persistence.entity";
 
 @Entity('phone')
 export class PhoneEntity extends Persistence {
-	@PrimaryGeneratedColumn()
-  id: number;
-
 	@Column('text')
 	areaCode: string;
 
@@ -14,7 +11,7 @@ export class PhoneEntity extends Persistence {
 
 	@Column({ type: 'enum', enum: ['HOME', 'WORK', 'MOBILE'] })
   type: string;
-	
+
 	
 	constructor(areaCode: string, number: string, type: string){
 			super();
