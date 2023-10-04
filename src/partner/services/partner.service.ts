@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { CreatePartnerDTO } from '../dto/create-partner.dto';
+import { CreatePartnerDto } from '../dto/create-partner.dto';
 import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 import { Liquid } from 'liquidjs';
 import { Repository } from 'typeorm';
@@ -9,7 +9,6 @@ import { Membership, Category, Partner } from '../entities/package.entities';
 
 @Injectable()
 export class PartnerService {
- 
 
   private readonly engine:Liquid
 
@@ -17,7 +16,7 @@ export class PartnerService {
   
   private membership: Membership[];
 
- 
+
   constructor(
     @InjectRepository(Partner)
     private readonly partnerRepository: Repository<Partner>,
@@ -36,7 +35,7 @@ export class PartnerService {
 
   }
 
-  create(createPartnerDto: CreatePartnerDTO) {
+  create(createPartnerDto: CreatePartnerDto) {
   // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
 
   // Estas lineas hacen que se rendericen la vista home con un conjunto de variables.
@@ -48,15 +47,13 @@ export class PartnerService {
   }
 
   async findAll() {
-
-    // TODO busca categorias, busca membresias, busca socios
-
-
-    // return await this.engine.renderFile('home', {partners, 
-    //                                              categories,
-    //                                              membership,
-    //                                              message: "" 
-    //                                           });
+    try {
+      const partners = await this.partnerRepository.find();
+      const renderedData = await this.dataPrint(partners, "Socios", "home");
+      return renderedData;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   findOne(id: number) {
@@ -87,24 +84,17 @@ export class PartnerService {
     message.push(`Se actualizo el socio con id: ${id}`);
     
     return this.dataPrint(partners, `Se actualizo el socio con id: ${id}`, "home")  
-                
   }
 
-
-  
   remove(id: number) {
     return `This action removes a #${id} partner`;
   }
-
-
 
   private async dataPrint(partners: Partner[], message: string,view: string){
     return await this.engine.renderFile(view, {partners, 
       categories: this.categories,
       memberships: this.membership,
       message
-   }); 
-  
+  }); 
   }
-  
 }
