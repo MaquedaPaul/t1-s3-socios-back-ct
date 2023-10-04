@@ -1,0 +1,24 @@
+:root {
+    --primary-color        : #26354a;
+    --secondary-color      : #67b4c0;
+    --secondary-color-hover: #a7c7ce;
+    font-size              : 16px;
+    font-weight            : 400;
+    --grid-gap             : calc(11 * 12px);
+    --background-dots      : url(../../public/background__dots.svg);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin    : 0;
+    padding   : 0;
+  }
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: grey;
+}
+main{
+    width: 100vw;
+    height: 100vh;
+}
