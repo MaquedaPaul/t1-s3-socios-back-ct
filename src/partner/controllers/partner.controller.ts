@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { PartnerService } from '../services/partner.service';
 import { CreatePartnerDto } from '../dto/create-partner.dto';
-import { UpdatePartnerDto } from '../dto/update-partner.dto';
+import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 
 @Controller('socios')
 export class PartnerController {
@@ -23,8 +23,8 @@ export class PartnerController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDto) {
-    return this.partnerService.update(+id, updatePartnerDto);
+  update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDTO) {
+      return this.partnerService.update(+id, updatePartnerDto);   
   }
 
   @Delete(':id')

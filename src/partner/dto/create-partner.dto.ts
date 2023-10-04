@@ -1,4 +1,6 @@
 import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
+import { PhoneDTO } from "./phone.dto";
+import { CategoryDTO } from "./category.dto";
 
 export class CreatePartnerDto {
   @IsNotEmpty()
@@ -40,9 +42,9 @@ export class CreatePartnerDto {
   @MinLength(3)
   province: string;
 
-//   @IsOptional()
-//   @IsArray()
-//   phones: PhoneDTO[];
+  @IsOptional()
+  @IsArray()
+  phones: PhoneDTO[];
 
   @IsOptional()
   @IsArray()
@@ -58,7 +60,7 @@ export class CreatePartnerDto {
 
   @IsOptional()
   @IsArray()
-  categories: number[];
+  categories: CategoryDTO[];
 
   @IsNotEmpty()
   @IsNumber()
@@ -72,3 +74,4 @@ export class CreatePartnerDto {
   @IsString()
   startDate: string;
 }
+
