@@ -5,6 +5,7 @@ import { Liquid } from 'liquidjs';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Membership, Category, Partner } from '../entities/package.entities';
+import { PhoneDTO } from '../dto/phone.dto';
 
 
 @Injectable()
@@ -105,6 +106,17 @@ export class PartnerService {
       message
    }); 
   
+  }
+
+  createSeveralPartners(quantity : number) {
+    //Logica del seed (crear varios socios)
+    
+    for(let i=1;i<=quantity;i++){
+
+      this.create(new CreatePartnerDTO('Denominacion'+i,'Nombre'+i,'Calle'+i,'LinkImagen'+i,'Direccion'+i,'Piso'+i,'Departamento'+i,'Localidad'+i,'Provincia'+i,new PhoneDTO('CodigoArea'+i,'Numero'+i,1),'Correo'+i))
+    
+    }
+    return 'Created the desired amount of test partners.'
   }
   
 }
