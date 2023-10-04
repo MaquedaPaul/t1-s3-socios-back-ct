@@ -33,6 +33,7 @@ export class PartnerService {
       extname: '.liquid',
     });
 
+    
   }
 
   create(createPartnerDto: CreatePartnerDto) {
@@ -49,11 +50,17 @@ export class PartnerService {
   async findAll() {
     try {
       const partners = await this.partnerRepository.find();
+      this.categories = await this.categoryRepository.find();
+      this.membership = await this.membershipRepository.find();
+      
       const renderedData = await this.dataPrint(partners, "Socios", "home");
       return renderedData;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
+
+   
+
   }
 
   findOne(id: number) {

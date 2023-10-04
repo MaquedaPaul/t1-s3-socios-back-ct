@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { PartnerService } from '../services/partner.service';
-import { CreatePartnerDTO } from '../dto/create-partner.dto';
+import { CreatePartnerDto } from '../dto/create-partner.dto';
 import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 
 @Controller('socios')
@@ -8,7 +8,7 @@ export class PartnerController {
   constructor(private readonly partnerService: PartnerService) {}
 
   @Post()
-  create(@Body() createPartnerDto: CreatePartnerDTO) {
+  create(@Body() createPartnerDto: CreatePartnerDto) {
     return this.partnerService.create(createPartnerDto);
   }
 
