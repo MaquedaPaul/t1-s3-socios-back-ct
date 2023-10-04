@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Copal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/registrationForm.css">
+</head>
+
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("addAssociate");
+            const button = document.getElementById("showForm");
+
+            if (form && button) {
+                button.addEventListener("click", function () {
+                    form.style.display = form.style.display === "none" ? "flex" : "none";
+                });
+            }
+        });
+    </script>
+
+    <main>
+        <button id="showForm">Crear</button>
+        {% include 'registrationform' categories:categories, parnerTypes:parnerTypes %}
+
+    </main>
+
+</body>
+
+</html>
