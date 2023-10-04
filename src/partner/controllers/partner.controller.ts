@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { PartnerService } from '../services/partner.service';
-import { CreatePartnerDto } from '../dto/create-partner.dto';
-import { UpdatePartnerDto } from '../dto/update-partner.dto';
+import { CreatePartnerDTO } from '../dto/create-partner.dto';
+import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 
 @Controller('socios')
 export class PartnerController {
   constructor(private readonly partnerService: PartnerService) {}
 
   @Post()
-  create(@Body() createPartnerDto: CreatePartnerDto) {
+  create(@Body() createPartnerDto: CreatePartnerDTO) {
     return this.partnerService.create(createPartnerDto);
   }
 
@@ -23,7 +23,7 @@ export class PartnerController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDto) {
+  update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDTO) {
       return this.partnerService.update(+id, updatePartnerDto);   
   }
 

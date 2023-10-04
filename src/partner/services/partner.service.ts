@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { CreatePartnerDto } from '../dto/create-partner.dto';
-import { UpdatePartnerDto } from '../dto/update-partner.dto';
+import { CreatePartnerDTO } from '../dto/create-partner.dto';
+import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 import { Liquid } from 'liquidjs';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -36,7 +36,7 @@ export class PartnerService {
 
   }
 
-  create(createPartnerDto: CreatePartnerDto) {
+  create(createPartnerDto: CreatePartnerDTO) {
   // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
 
   // Estas lineas hacen que se rendericen la vista home con un conjunto de variables.
@@ -63,7 +63,7 @@ export class PartnerService {
     return `This action returns a #${id} partner`;
   }
 
-  async update(id: number, updatePartnerDto: UpdatePartnerDto) {
+  async update(id: number, updatePartnerDto: UpdatePartnerDTO) {
 
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
