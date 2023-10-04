@@ -1,1 +1,1 @@
-export class CreatePartnerDto {}
+export class CreatePartnerDTO {}
