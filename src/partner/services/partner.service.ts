@@ -9,7 +9,6 @@ import { Membership, Category, Partner } from '../entities/package.entities';
 
 @Injectable()
 export class PartnerService {
- 
 
   private readonly engine:Liquid
 
@@ -17,7 +16,7 @@ export class PartnerService {
   
   private membership: Membership[];
 
- 
+
   constructor(
     @InjectRepository(Partner)
     private readonly partnerRepository: Repository<Partner>,
@@ -49,18 +48,19 @@ export class PartnerService {
   }
 
   async findAll() {
+    try {
+      const partners = await this.partnerRepository.find();
+      this.categories = await this.categoryRepository.find();
+      this.membership = await this.membershipRepository.find();
+      
+      const renderedData = await this.dataPrint(partners, "Socios", "home");
+      return renderedData;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
 
-    this.categories = await this.categoryRepository.find();
-    this.membership = await this.membershipRepository.find();
+   
 
-    // TODO busca categorias, busca membresias, busca socios
-
-
-    // return await this.engine.renderFile('home', {partners, 
-    //                                              categories,
-    //                                              membership,
-    //                                              message: "" 
-    //                                           });
   }
 
   findOne(id: number) {
@@ -73,7 +73,6 @@ export class PartnerService {
       id: +id,
       updatedAt: new Date(),
       ...updatePartnerDto
-  
     });
 
     if(!partnerUpdate) 
@@ -92,8 +91,8 @@ export class PartnerService {
     message.push(`Se actualizo el socio con id: ${id}`);
     
     return this.dataPrint(partners, `Se actualizo el socio con id: ${id}`, "home")  
-                
   }
+
 
 
   
@@ -119,18 +118,27 @@ export class PartnerService {
         throw new InternalServerErrorException(error.message) ;
     } 
 
-    
+   
   }
-
-
 
   private async dataPrint(partners: Partner[], message: string,view: string){
     return await this.engine.renderFile(view, {partners, 
       categories: this.categories,
       memberships: this.membership,
       message
-   }); 
-  
+  }); 
   }
-  
+
+  async deletePartnerById(id: number): Promise<boolean> {
+    const partner = await this.partnerRepository.findOne({ where: { id } });
+
+    if (!partner) 
+      throw new NotFoundException(`Socio con ID ${id} no encontrado.`);
+
+    partner.deleteAt = new Date();
+
+    await this.partnerRepository.save(partner);
+
+    return true;
+  }
 }
