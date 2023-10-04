@@ -71,7 +71,8 @@ export class PartnerService {
 
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
-      ...updatePartnerDto  
+      updatedAt: new Date(),
+      ...updatePartnerDto
     });
 
     if(!partnerUpdate) 
@@ -92,8 +93,32 @@ export class PartnerService {
     return this.dataPrint(partners, `Se actualizo el socio con id: ${id}`, "home")  
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} partner`;
+
+
+  
+  async remove(id: number) {
+    const deletePartner = await this.partnerRepository.findOneBy({id});
+    
+    if(!deletePartner) 
+      throw new NotFoundException(`No existe el socio con id: ${id}`) ;
+
+    try {
+        await this.partnerRepository.preload({
+          id: +id,
+          deleteAt: new Date(),
+          ...deletePartner
+        }); 
+
+        await this.partnerRepository.save(deletePartner);
+
+        const partners = await this.partnerRepository.find();
+
+        return this.dataPrint(partners, `Se elimino el socio con id: ${id}`, "home")
+    } catch (error) {
+        throw new InternalServerErrorException(error.message) ;
+    } 
+
+   
   }
 
   private async dataPrint(partners: Partner[], message: string,view: string){
