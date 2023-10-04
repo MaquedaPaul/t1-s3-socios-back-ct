@@ -10,7 +10,7 @@ export class PartnerWebsite extends Persistence{
     website: string;
 
     @ManyToOne(() => Partner, (partner) => partner.websites, {nullable: false})
-    @JoinColumn({ name: 'id_parner' })
+    @JoinColumn({ name: 'id_partner' })
     partner: Partner;
 
     constructor(email: string){

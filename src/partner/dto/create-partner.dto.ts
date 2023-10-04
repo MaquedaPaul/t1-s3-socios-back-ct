@@ -52,7 +52,7 @@ export class CreatePartnerDto {
 
   @IsOptional()
   @IsArray()
-  webSites: string[];
+  websites: string[];
 
   @IsNotEmpty()
   @IsString()

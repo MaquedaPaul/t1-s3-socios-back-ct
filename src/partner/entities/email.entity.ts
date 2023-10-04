@@ -11,7 +11,7 @@ export class PartnerEmail extends Persistence{
 
     
     @ManyToOne(() => Partner, (partner) => partner.emails, {nullable: false})
-    @JoinColumn({ name: 'id_parner' })
+    @JoinColumn({ name: 'id_partner' })
     partner: Partner;
 
     constructor(email: string){
