@@ -49,7 +49,7 @@ export class PartnerService {
 
   async findAll() {
     try {
-      const partners = await this.partnerRepository.find();
+      const partners = await this.partnerRepository.find({where: {deleteAt: null}});
       this.categories = await this.categoryRepository.find();
       this.membership = await this.membershipRepository.find();
       
@@ -84,7 +84,7 @@ export class PartnerService {
         throw new InternalServerErrorException(error.message) ;
     }
     
-    const partners = await this.partnerRepository.find();
+    const partners = await this.partnerRepository.find({where: {deleteAt: null}});
 
     let message : string[] = [];
 
@@ -111,7 +111,7 @@ export class PartnerService {
 
         await this.partnerRepository.save(deletePartner);
 
-        const partners = await this.partnerRepository.find();
+        const partners = await this.partnerRepository.find({where: {deleteAt: null}});
 
         return this.dataPrint(partners, `Se elimino el socio con id: ${id}`, "home")
     } catch (error) {
