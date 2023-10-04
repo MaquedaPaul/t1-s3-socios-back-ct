@@ -40,9 +40,9 @@ export class CreatePartnerDto {
   @MinLength(3)
   province: string;
 
-//   @IsOptional()
-//   @IsArray()
-//   phones: PhoneDTO[];
+  @IsOptional()
+  @IsArray()
+  phones: PhoneDTO[];
 
   @IsOptional()
   @IsArray()
@@ -58,7 +58,7 @@ export class CreatePartnerDto {
 
   @IsOptional()
   @IsArray()
-  categories: number[];
+  categories: CategoryDTO[];
 
   @IsNotEmpty()
   @IsNumber()
@@ -72,3 +72,4 @@ export class CreatePartnerDto {
   @IsString()
   startDate: string;
 }
+

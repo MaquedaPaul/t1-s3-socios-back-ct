@@ -1,27 +1,26 @@
-import { IsString } from "class-validator";
+import { IsString, MinLength } from "class-validator";
 
-export class UpdatePartnerDTO {
-    @IsString()
-    denomination: string;
+export class LocationDTO {
 
     @IsString()
-    name: string;
-
-    @IsString()
+    @MinLength(3)
     street: string;
 
     @IsString()
-    streetAddress: string;
-    
+    @MinLength(2)
+    streetAdress: string;
+
     @IsString()
     floor: string;
-    
+
     @IsString()
     apartment: string;
-    
+
     @IsString()
     department: string;
-    
+
     @IsString()
+    @MinLength(3)
     province: string;
+
 }
