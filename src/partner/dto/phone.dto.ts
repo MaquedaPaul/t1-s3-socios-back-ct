@@ -11,3 +11,4 @@ export class PhoneDTO {
 	@IsNumber()
   type: number;
 }
+
