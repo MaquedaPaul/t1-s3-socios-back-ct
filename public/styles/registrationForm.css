@@ -1,0 +1,132 @@
+/*Form container*/
+.creatioContent{
+    font-family: var(--montserrat-font);
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    width: 471px;
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 30px 24px 16px 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--primary-color);
+    z-index: 500;
+
+}
+.creationTitle{
+    color: #FFF;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 600;
+}
+.creationForm {
+    display: flex;
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    }
+/*Form inputs*/
+.inputContainer{
+    display: flex;
+    width: 100%;
+    min-height: 42px;
+    padding: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+.inputContainer label{
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+.inputContainer input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--secondary-color);
+    color: white;
+    width: 100%;
+}
+.inputContainer input:focus{
+    outline: none;
+}
+/*form fieldSet*/
+.creationForm fieldset{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border: none;
+    gap: 10px;
+}
+.fieldLabel{
+    padding: 5px 0px 0px 5px;
+    font-size: 14px;
+    color: var(--secondary-color);
+    width: 100%;
+}
+.directionInput{
+    display: flex;
+    width: 45%;
+}
+/*phone inputs*/
+.phoneCodArea{
+    width: 20%;
+}
+.phoneNumber{
+    width: 30%;
+}
+.phoneType{
+    width: 20%;
+}
+/*RADIO*/
+.radio{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.container{
+    padding: 5px;
+}
+.container input{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid var(--secondary-color);
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    
+}
+.container input:checked{
+    background: var(--secondary-color);
+}
+.container label{
+    margin: 0px 10px 0px 5px;
+    color: white;
+}
+/*SELECT*/
+
+
+.select{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--secondary-color);
+    color: white;
+}
+.select:focus{
+    outline: none;
+}
+.select option{
+    background: var(--primary-color);
+    border: none;
+}
+.select option:focus{
+    outline: none;
+}
