@@ -1,0 +1,33 @@
+{% if type == "select" %}
+
+<div class="inputContainer">
+    <label htmlFor="{{name}}">{{label | append: ':' |capitalize }}</label>
+    <select id="{{name}}" class="select" name="{{name}}">
+        {% for category in categories %}
+        <option value="{{category.id}}">{{category.name}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+{% elsif type == "radio" %}
+
+<div class="inputContainer">
+    <label>{{label |append: ':' | capitalize }}</label>
+    <div class="radio">
+        {% for parnerType in parnerTypes %}
+        <div class="container">
+            <input id="{{parnerType.name}}" type="radio" value="{{parnerType.id}}" name="{{name}}" />
+            <label htmlFor="{{parnerType.name}}">{{parnerType.name | capitalize}}</label>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+
+<div class="inputContainer">
+    <label for="{{ name }}">{{ label | capitalize }}</label>
+    <input type="{{ type }}" id="{{ name }}" name="{{ name }}">
+</div>
+
+{% endif %}
