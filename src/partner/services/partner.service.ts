@@ -64,8 +64,7 @@ export class PartnerService {
 
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
-      ...updatePartnerDto
-  
+      ...updatePartnerDto  
     });
 
     if(!partnerUpdate) 
@@ -96,5 +95,18 @@ export class PartnerService {
       memberships: this.membership,
       message
   }); 
+  }
+
+  async deletePartnerById(id: number): Promise<boolean> {
+    const partner = await this.partnerRepository.findOne({ where: { id } });
+
+    if (!partner) 
+      throw new NotFoundException(`Socio con ID ${id} no encontrado.`);
+
+    partner.deleteAt = new Date();
+
+    await this.partnerRepository.save(partner);
+
+    return true;
   }
 }
