@@ -1,0 +1,55 @@
+<div id="addAssociate" class="creatioContent">
+    <h1 class="creationTitle">
+        Cuéntanos sobre el nuevo integrante
+    </h1>
+    <form class="creationForm" action="" method="post">
+        {% include 'input',name:"denomination",label:'denominación' %}
+        {% include 'input',name:"name",label:'nombre' %}
+
+        <fieldset>
+            <h3 class="fieldLabel">Dirección:</h3>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"street", label:'calle' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"image",label:'URL de imagen' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"streetAddress",label:'altura' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"floor",label:'piso' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"apartment",label:'departamento' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"department",label:'localidad' %}
+            </div>
+            <div class="directionInput">
+                {% include 'input', type:'text', name:"province",label:'provincia' %}
+            </div>
+            <button onClick="">Guardar</button>
+        </fieldset>
+
+        <fieldset>
+            <h3 class="fieldLabel">Telefono:</h3>
+            <div class="phoneCodArea">
+                {% include 'input', type:'text', name:"areaCode",label:'cod.Area' %}
+            </div>
+            <div class="phoneNumber">
+                {% include 'input', type:'text', name:"number",label:'telefono' %}
+            </div>
+            <div class="phoneType">
+                {% include 'input', type:'text', name:"type",label:'tipo.Telefono' %}
+            </div>
+            <button onClick="">Guardar</button>
+        </fieldset>
+
+        {% include 'input', type:'email', name:"emails",label:'correos electrónico' %}
+        {% include 'input', type:'text', name:"webSites",label:'sitio Web' %}
+        {% include 'input', type:'select', name:'category', label:'categorias', categories:categories %}
+        {% include 'input', type:'radio', name:'parnerType', label:'tipo de socio', parnerTypes:parnerTypes %}
+        {% include 'input', type:'date', name:"startDate",label:'inicio de asociación' %}
+    </form>
+</div>
