@@ -1,3 +1,3 @@
 import { SetMetadata } from '@nestjs/common';
 
-export const PhoneDto = (...args: string[]) => SetMetadata('phone-dto', args);
+export const PhoneDTO = (...args: string[]) => SetMetadata('phone-dto', args);
