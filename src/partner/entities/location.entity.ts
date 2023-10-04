@@ -9,7 +9,7 @@ export class Location extends Persistence {
     street: string;
 
     @Column('varchar')
-    streetAdress: string;
+    streetAddress: string;
 
     @Column('varchar')
     floor: string;
@@ -26,7 +26,7 @@ export class Location extends Persistence {
     constructor(street: string, streetAdress: string, floor: string, apartment: string, department: string, province: string){
         super();
         this.street = street;
-        this.streetAdress = streetAdress;
+        this.streetAddress = streetAdress;
         this.floor = floor;
         this.apartment = apartment;
         this.department = department;

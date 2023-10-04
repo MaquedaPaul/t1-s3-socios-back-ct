@@ -3,7 +3,7 @@ import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "
 export class CreatePartnerDto {
   @IsNotEmpty()
   @IsString()
-  denominacion: string;
+  denomination: string;
 
   @IsNotEmpty()
   @IsString()

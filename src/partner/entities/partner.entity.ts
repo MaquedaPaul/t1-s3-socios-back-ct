@@ -18,8 +18,8 @@ import {
 
 
 export enum PartnerType {
-  TYPE1 = 'PLENARY',
-  TYPE2 = 'ASSOCIATE',
+  PLENARY = 'PLENARY',
+  ASSOCIATE = 'ASSOCIATE',
 }
 
 @Entity('partners')
