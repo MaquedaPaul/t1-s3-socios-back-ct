@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'DokkuConexionBD'
 jobs:
   build:
     runs-on: ubuntu-latest
