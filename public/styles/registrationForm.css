@@ -1,5 +1,5 @@
 /*Form container*/
-.creatioContent{
+.creatioContent {
     font-family: var(--montserrat-font);
     position: absolute;
     right: 0;
@@ -14,14 +14,18 @@
     gap: 5px;
     background-color: var(--primary-color);
     z-index: 500;
+    transform       : translate(100%);
+    transition      : all .5s ease;
 
 }
-.creationTitle{
+
+.creationTitle {
     color: #FFF;
     font-size: 26px;
     font-style: normal;
     font-weight: 600;
 }
+
 .creationForm {
     display: flex;
     width: 100%;
@@ -30,9 +34,10 @@
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
-    }
+}
+
 /*Form inputs*/
-.inputContainer{
+.inputContainer {
     display: flex;
     width: 100%;
     min-height: 42px;
@@ -41,22 +46,26 @@
     align-items: flex-start;
     gap: 5px;
 }
-.inputContainer label{
+
+.inputContainer label {
     font-size: 14px;
     color: var(--secondary-color);
 }
-.inputContainer input{
+
+.inputContainer input {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid var(--secondary-color);
     color: white;
     width: 100%;
 }
-.inputContainer input:focus{
+
+.inputContainer input:focus {
     outline: none;
 }
+
 /*form fieldSet*/
-.creationForm fieldset{
+.creationForm fieldset {
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -64,36 +73,44 @@
     border: none;
     gap: 10px;
 }
-.fieldLabel{
+
+.fieldLabel {
     padding: 5px 0px 0px 5px;
     font-size: 14px;
     color: var(--secondary-color);
     width: 100%;
 }
-.directionInput{
+
+.directionInput {
     display: flex;
     width: 45%;
 }
+
 /*phone inputs*/
-.phoneCodArea{
+.phoneCodArea {
     width: 20%;
 }
-.phoneNumber{
+
+.phoneNumber {
     width: 30%;
 }
-.phoneType{
+
+.phoneType {
     width: 20%;
 }
+
 /*RADIO*/
-.radio{
+.radio {
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
-.container{
+
+.container {
     padding: 5px;
 }
-.container input{
+
+.container input {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -102,31 +119,99 @@
     border-radius: 50%;
     height: 9px;
     width: 9px;
-    
+
 }
-.container input:checked{
+
+.container input:checked {
     background: var(--secondary-color);
 }
-.container label{
+
+.container label {
     margin: 0px 10px 0px 5px;
     color: white;
 }
+
 /*SELECT*/
 
 
-.select{
+.select {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid var(--secondary-color);
     color: white;
 }
-.select:focus{
+
+.select:focus {
     outline: none;
 }
-.select option{
+
+.select option {
     background: var(--primary-color);
     border: none;
 }
-.select option:focus{
+
+.select option:focus {
     outline: none;
+}
+
+/*BUTTONS*/
+.button {
+    display: flex;
+    width: 150px;
+    height: 50px;
+    min-width: 150px;
+    min-height: 50px;
+    padding: 5px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: none;
+}
+
+.buttonText {
+    color: inherit;
+    text-align: center;
+    font-family: var(--montserrat-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1px;
+}
+
+.buttonImage {
+    height: 24px;
+    width: 24px;
+}
+
+.primary {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0px 4px 10px 1px rgba(38, 53, 74, 0.70);
+    color: white;
+}
+
+.secondary {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0px 4px 10px 1px rgba(38, 53, 74, 0.70);
+    color: var(--secondary-color);
+}
+
+.delete {
+    display: inline-flex;
+    border-radius: 10px;
+    background: #E35455;
+    min-width: 44px;
+    width: 44px;
+}
+
+.edit {
+    display: inline-flex;
+    border-radius: 10px;
+    background: rgba(254, 255, 254, 0.60);
+    min-width: 44px;
+    width: 44px;
+
 }

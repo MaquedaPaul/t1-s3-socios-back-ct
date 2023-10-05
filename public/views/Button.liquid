@@ -1,0 +1,7 @@
+<button id="{{id}}" class="button {{class}}" onClick="{{action}}">
+    {% if source %}
+    <Image class="buttonImage" src="{{source}}" alt="icono del boton" width={150} height={50} />
+    {% endif %}
+
+    <span className="buttonText">{{text | capitalize}}</span>
+</button>

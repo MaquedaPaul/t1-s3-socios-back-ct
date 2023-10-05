@@ -11,25 +11,14 @@
 
 
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("addAssociate");
-            const button = document.getElementById("showForm");
-
-            if (form && button) {
-                button.addEventListener("click", function () {
-                    form.style.display = form.style.display === "none" ? "flex" : "none";
-                });
-            }
-        });
-    </script>
 
     <main>
-        <button id="showForm">Crear</button>
         {% include 'registrationform' categories:categories, parnerTypes:parnerTypes %}
+        {% include 'Button' class:'secondary', source:'./img/add__icon.svg', text:'Crear', action:'mostrarForm()' %}
 
     </main>
 
 </body>
+<script src="../js/form.js"></script>
 
 </html>
