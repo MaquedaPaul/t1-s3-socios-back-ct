@@ -14,7 +14,6 @@ import { CategoryDTO } from '../dto/category.dto';
 import { PartnerWebsite } from '../entities/website.entity';
 import { PhoneDTO } from '../dto/phone.dto';
 
-
 @Injectable()
 export class PartnerService {
 
@@ -25,9 +24,8 @@ export class PartnerService {
   private membership: Membership[];
 
   private readonly logger = new Logger('PartnerService');
- 
-  constructor(
 
+  constructor(
     @InjectRepository(Partner)
     private readonly partnerRepository: Repository<Partner>,
 
@@ -45,10 +43,7 @@ export class PartnerService {
 
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
-  
-
   ) {
-
 
     this.engine = new Liquid({
       root: ['public/views/', 'public/views/partials/', 'public/views/partials/table/'],
@@ -65,9 +60,10 @@ export class PartnerService {
       this.membershipRepository.save(testMembership3);
   }
 
+
    async create(partner: CreatePartnerDto): Promise<boolean>{
      try {
-      this.temporalFunction();
+      // this.temporalFunction();
       const partnerType = this.conversionEnumPartnerType(partner.partnerType);
       const newPartner = this.createBasePartner(partner, partnerType);
       const location = await this.createLocationAndSave(partner); 
@@ -78,11 +74,11 @@ export class PartnerService {
       this.createPhones(partner.phones, newPartner);
       this.createParticularMembership(partner, newPartner);
       await this.partnerRepository.save(newPartner);
-//
+
       this.createEmails(partner, newPartner);
       this.createWebsites(partner, newPartner);
 
-       await this.partnerRepository.save(newPartner);
+      await this.partnerRepository.save(newPartner);
        //it is necessary that the partner is saved after modifications (2 modifications in this case)
        //Otherwise it could break the maximum stack
       
@@ -90,7 +86,7 @@ export class PartnerService {
       return this.dataPrint(partners,``, "home")  
     } catch (error) {
       this.logger.error(error);
-       throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
 
@@ -100,7 +96,7 @@ export class PartnerService {
   //     membership,
   //     message: "" 
   //  });
-   }//
+  }//
   private createWebsites(partner: CreatePartnerDto, newPartner: Partner) {
       newPartner.websites = partner.websites.map(website => new PartnerWebsite(website));
       newPartner.websites.forEach(website => website.partner = newPartner);
@@ -138,7 +134,7 @@ export class PartnerService {
         newPartner.phones.push(newPhone);
       });
   }
-  private createLocationAndSave(partner: CreatePartnerDto) {
+  private async createLocationAndSave(partner: CreatePartnerDto) {
         const location = this.locationRepository.create({
         street: partner.street,
         streetAddress: partner.streetAddress,
@@ -147,7 +143,7 @@ export class PartnerService {
         department: partner.department,
         province: partner.province,
         });
-    this.locationRepository.save(location);
+    await this.locationRepository.save(location);
     return location;
   }
   private createBasePartner(partner: CreatePartnerDto, partnerType: PartnerType) {
@@ -176,25 +172,20 @@ export class PartnerService {
         throw new Error("Tipo de numero no reconocido");
     }
   }
-    private conversionEnumPartnerType(partnerType: string) {
-      if (partnerType === '0') {
-          return PartnerType.PLENARY;
-      }
-      else if (partnerType === '1') {
-        return PartnerType.ASSOCIATE;
-      } else {
-        throw new Error("Tipo de socio no reconocido");
-      }
 
+    private conversionEnumPartnerType(partnerType: string) {
+      if (partnerType === '0') 
+          return PartnerType.PLENARY;
+      if (partnerType === '1') 
+        return PartnerType.ASSOCIATE;
+      throw new Error("Tipo de socio no reconocido");
   }
-  
+
     findOne(arg0: number) {
     throw new Error('Method not implemented.');
   }
-  
 
     // TODO busca categorias, busca membresias, busca socios
-
 
   async findAll() {
     try {
@@ -207,12 +198,9 @@ export class PartnerService {
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
- 
-
   }
 
   async getCategoriesByIds(idsCategories: CategoryDTO[]): Promise<Category[]> {
-    // Utiliza el método 'findByIds' del repositorio para buscar categorías por sus IDs
     return this.categoryRepository.findBy({ id: In(idsCategories) });
   }
 
@@ -221,6 +209,8 @@ export class PartnerService {
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
       updatedAt: new Date(),
+      denomination:updatePartnerDto.denomination,
+      name:updatePartnerDto.name,
       location:updatePartnerDto
     });
 
@@ -246,19 +236,16 @@ export class PartnerService {
 
   
   async remove(id: number) {
-    const deletePartner = await this.partnerRepository.findOneBy({id});
-    
-    if(!deletePartner) 
-      throw new NotFoundException(`No existe el socio con id: ${id}`) ;
-
-    try {
-        await this.partnerRepository.preload({
+      try {
+        const partnerDeleted = await this.partnerRepository.preload({
           id: +id,
-          deleteAt: new Date(),
-          ...deletePartner
-        }); 
+          deleteAt: new Date()
+        });
 
-        await this.partnerRepository.save(deletePartner);
+        if(!partnerDeleted) 
+        throw new NotFoundException(`No existe el socio con id: ${id}`) ;
+
+        await this.partnerRepository.save(partnerDeleted);
 
         const partners = await this.partnerRepository.find({where: {deleteAt: null}});
 
@@ -290,5 +277,19 @@ export class PartnerService {
 
     return true;
   }
+
+ async createSeveralPartners(quantity : number) {
+    //Logica del seed (crear varios socios)
+    await this.membershipRepository.save(new Membership("Anual", 12));
+    await this.categoryRepository.save(new Category("Supermercado", "Categoria 1"));
+
+    for(let i=1;i<=quantity;i++){
+      this.create(new CreatePartnerDto(`Denominacion ${i}`,`Nombre ${i}`,`Calle ${i}`,`LinkImagen ${i}`,`Direccion ${i}`,`Piso ${i}`,`Departamento ${i}`,`Localidad ${i}`,`Provincia ${i}`,[new PhoneDTO(`CodigoArea ${i}`,`Numero ${i}`, 1)], ["asdfasdf@1.com", "asdfasdf@2.com"], ["www.asdfasdf.com", "www.asdfasdf.com"], "0", [new CategoryDTO("nombre-categoria", `Categoria ${i}`)], 12, 1, "2021-01-01" ))
+
+    }
+    return 'Created the desired amount of test partners.'
+  }
+
+
 }
 
