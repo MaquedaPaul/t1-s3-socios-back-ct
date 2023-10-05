@@ -21,7 +21,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
         statusCode: HttpStatus.BAD_REQUEST,
         timestamp: new Date().toISOString(),
         path: request.url,
-        error: 'Bad Request',
+        error: 'Solicitud Inválida',
         message: messages,
       });
     } else {
@@ -29,8 +29,8 @@ export class ValidationExceptionFilter implements ExceptionFilter {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         timestamp: new Date().toISOString(),
         path: request.url,
-        error: 'Internal Server Error',
-        message: 'Something went wrong.',
+        error: 'Error interno del servidor',
+        message: 'Algo salio mal.',
       });
     }
   }

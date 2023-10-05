@@ -38,15 +38,15 @@ import { APP_FILTER } from '@nestjs/core';
       password: '',      
       autoLoadEntities: true,
       synchronize: true,
-    })
-  
-  
+    })  
   ],
   controllers: [AppController],
-  providers: [ 
-    AppService,   
-    {provide: APP_FILTER,
-    useClass: ValidationExceptionFilter,}
-  ],
+
+  providers: [AppService,
+    {
+      provide: APP_FILTER,
+      useClass: ValidationExceptionFilter,
+    },],
+
 })
 export class AppModule {}
