@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { PartnerModule } from './partner/partner.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ValidationExceptionFilter } from './validation-exception.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [PartnerModule, ConfigModule.forRoot(),
@@ -41,6 +43,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [ 
+    AppService,   
+    {provide: APP_FILTER,
+    useClass: ValidationExceptionFilter,}
+  ],
 })
 export class AppModule {}
