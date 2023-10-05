@@ -14,7 +14,6 @@ import { CategoryDTO } from '../dto/category.dto';
 import { PartnerWebsite } from '../entities/website.entity';
 import { PhoneDTO } from '../dto/phone.dto';
 
-
 @Injectable()
 export class PartnerService {
 

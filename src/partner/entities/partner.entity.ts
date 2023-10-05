@@ -15,6 +15,8 @@ import {
     Phone, 
     Location
 } from "./package.entities";
+import { IsNotEmpty } from 'class-validator';
+
 
 
 export enum PartnerType {
@@ -26,13 +28,12 @@ export enum PartnerType {
 export class Partner extends Persistence {
 
   @Column({ type: 'varchar' })
+  @IsNotEmpty()
   denomination: string;
 
   @Column({ type: 'varchar' })
+  @IsNotEmpty()
   name: string;
-
-  // @Column({ type: 'varchar' })
-  // isActive: boolean;
 
   @Column({ name: 'image' })
   image: string;
@@ -53,7 +54,6 @@ export class Partner extends Persistence {
 
   @OneToMany(() => Phone, (phone) => phone.partner, {cascade: true, eager: true})
   phones: Phone[];
-    
 
   @OneToMany(() => PartnerEmail, (email) => email.partner, {cascade: true, eager: true})
   emails: PartnerEmail[];
