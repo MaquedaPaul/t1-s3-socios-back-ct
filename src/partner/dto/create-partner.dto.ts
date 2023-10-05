@@ -60,7 +60,7 @@ export class CreatePartnerDto {
 
   @IsOptional()
   @IsArray()
-  categories: CategoryDTO[];
+  categories: number[];
 
   @IsNotEmpty()
   @IsNumber()

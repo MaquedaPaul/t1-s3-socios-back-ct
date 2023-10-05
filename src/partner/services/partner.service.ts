@@ -56,17 +56,11 @@ export class PartnerService {
   }
 
    async create(partner: CreatePartnerDto): Promise<boolean>{
-    try {
+    // try {
       const partnerType =
         partner.partnerType === '0' ? 'PLENARY' : 'ASSOCIATE';
 
-      const newPartner = this.partnerRepository.create({
-        denomination: partner.denomination,
-        name: partner.name,
-        image: partner.image,
-        partnerType: partnerType as PartnerType,
-      });
-
+        //correcto -> falta guardar el partner
 
       const location = this.locationRepository.create({
         street: partner.street,
@@ -74,63 +68,72 @@ export class PartnerService {
         floor: partner.floor,
         apartment: partner.apartment,
         department: partner.department,
-        province: partner.province,
-        
+        province: partner.province
       });
-      await this.locationRepository.save(location);
+
+      const newPartner = this.partnerRepository.create({
+        denomination: partner.denomination,
+        name: partner.name,
+        image: partner.image,
+        partnerType: partnerType as PartnerType,
+        location: location,
+        phones: [],
+        emails: [],
+        websites: [],
+        memberships: [],
+        categories: []
+      });
+
+      await this.partnerRepository.save(newPartner);
+
       
-      partner.phones.forEach(async (phone) => {
+
+      
+      // correcto crea la direccion y la guarda
+      
+      partner.phones.forEach((phone) => {
 
         const aPhoneType = this.conversionEnumPhoneType(phone.type);
         const newPhone =
           this.phoneRepository.create({
           areaCode: phone.areaCode,
           number: phone.number,
-            type: aPhoneType,
-            partner: newPartner,
+          type: aPhoneType,
+          partner: newPartner,
           });
-        newPhone.partner = newPartner;
-        await this.phoneRepository.save(newPhone);
-        newPartner.phones.push(newPhone);
+        
+         
+          newPartner.phones.push(newPhone);
+
+        // correcto por cada iteracion guarda los telefonos en el socio
       });
 
+      const membership = await this.membershipRepository.findOneBy({id: partner.membershipID});
+      
+      
+      // error si no encuentra la membresia
+      if(!membership) throw new NotFoundException('No existe la membresia');
 
-      const membership = await this.membershipRepository.findOneBy({
-        id: partner.membershipID
-      }
-      );
 
-      const particularMembership = this.particularMembershipRepository.create({
-        membership: membership,
-        startDate: new Date(partner.startDate),
-        value: partner.membershipValue,
-        partner: newPartner,
-      });
-
-      await this.membershipRepository.save(particularMembership);
+      //crea la membresia particular
+      const particularMembership = new ParticularMembership(membership, new Date(partner.startDate), partner.membershipValue, newPartner);
       newPartner.memberships.push(particularMembership);
-
-      newPartner.location = location;
+      
+      // asocia las categorias al socio
       newPartner.categories = await this.getCategoriesByIds(partner.categories);
+
+      // genera instancias de mail y las almacena en el socio
       newPartner.emails = partner.emails.
         map(email => new PartnerEmail(email));
-      //newPartner.emails.forEach(email => email.partner = newPartner);
+
       newPartner.websites = partner.websites.map(website => new PartnerWebsite(website));
-      //newPartner.websites.forEach(website => website.partner = newPartner);
+
+      // Finalmente guarda el estado del socio nuevamente
       await this.partnerRepository.save(newPartner);
+      
       const partners = await this.partnerRepository.find();
       return this.dataPrint(partners,``, "home")  
-    } catch (error) {
-      throw new Error('Error al crear el socio, por favor inténtelo más tarde');
-    }
-  // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
-
-  // Estas lineas hacen que se rendericen la vista home con un conjunto de variables.
-  //   return await this.engine.renderFile('home', {partners, 
-  //     categories,
-  //     membership,
-  //     message: "" 
-  //  });
+    
   }
   private conversionEnumPhoneType(phoneType: number) {
 
@@ -164,9 +167,11 @@ export class PartnerService {
     //                                           });
   }
 
-  async getCategoriesByIds(idsCategories: CategoryDTO[]): Promise<Category[]> {
+  async getCategoriesByIds(idsCategories: number[]): Promise<Category[]> {
     // Utiliza el método 'findByIds' del repositorio para buscar categorías por sus IDs
-    return this.categoryRepository.findBy({ id: In(idsCategories) });
+   
+      return this.categoryRepository.findBy({ id: In(idsCategories) });
+  
   }
 
   async update(id: number, updatePartnerDto: UpdatePartnerDTO) {

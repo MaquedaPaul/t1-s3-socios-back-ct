@@ -38,7 +38,7 @@ export class Partner extends Persistence {
   @JoinColumn({name: 'id_location'})
   location: Location;
 
-  @OneToMany(() => ParticularMembership, (membership) => membership.partner, {cascade: true, eager: true})
+  @OneToMany(() => ParticularMembership, (particularMembership) => particularMembership.partner, {cascade: true, eager: true})
   memberships: ParticularMembership[];
 
   @Column({ type: 'enum', enum: PartnerType })

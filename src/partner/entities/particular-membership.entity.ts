@@ -7,7 +7,7 @@ import { Partner } from "./partner.entity";
 @Entity('particular_memberships')
 export class ParticularMembership extends Persistence{
 
-    @ManyToOne(() => Membership, {cascade: true, eager: true, nullable: false})
+    @ManyToOne(() => Membership, {eager: true, nullable: false})
     @JoinColumn({ name: 'id_membership' })
     membership: Membership;
 
@@ -22,6 +22,7 @@ export class ParticularMembership extends Persistence{
     partner: Partner;
 
 
+
     isActive(): boolean {
         const currentDate = new Date();
         return currentDate > this.startDate && currentDate < this.getEndDate();
@@ -34,11 +35,12 @@ export class ParticularMembership extends Persistence{
     }
 
 
-    constructor(membership: Membership, startDate: Date, value: number) {
+    constructor(membership: Membership, startDate: Date, value: number, partner: Partner) {
         super();
         this.membership = membership;
         this.startDate = startDate;
         this.value = value;
+        this.partner = partner;
         
     }
 }
