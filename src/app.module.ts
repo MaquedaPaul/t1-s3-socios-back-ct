@@ -9,17 +9,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [PartnerModule, ConfigModule.forRoot(),
     
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      database: 'partners',
+     // type: 'mysql',
+     // host: 'dokku-mariadb-acc-squad-t1s3-db-dev',
+     /* port: 3306,
+      database: 'acc_squad_t1s3_db_dev',
       username: 'root',
-      password: '',      
+      password: 'Fr3a951',      
       autoLoadEntities: true,
+      synchronize: true,*/
+    url: 'mysql://root:Fr3a951@dokku-mariadb-acc-squad-t1s3-db-dev:3306/acc_squad_t1s3_db_dev',
       synchronize: true,
+    
     })
   
-  
+ 
   ],
   controllers: [AppController],
   providers: [AppService],
