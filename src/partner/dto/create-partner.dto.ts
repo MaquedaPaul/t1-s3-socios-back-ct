@@ -73,5 +73,27 @@ export class CreatePartnerDto {
   @IsNotEmpty()
   @IsString()
   startDate: string;
-}
+  
+  constructor(denomination: string, name: string, street: string, image: string, streetAddress: string, floor: string, apartment: string, department: string, province: string, phones: PhoneDTO[], emails: string[], websites: string[], partnerType: string, categories: CategoryDTO[], membershipValue: number, membershipID: number, startDate: string){
+    this.denomination = denomination;
+    this.name = name;
+    this.street = street;
+    this.image = image;
+    this.streetAddress = streetAddress;
+    this.floor = floor;
+    this.apartment = apartment;
+    this.department = department;
+    this.province = province;
+    this.phones = phones;
+    this.emails = emails;
+    this.websites = websites;
+    this.partnerType = partnerType;
+    this.categories = categories;
+    this.membershipValue = membershipValue;
+    this.membershipID = membershipID;
+    this.startDate = startDate;
+  }
+
+  }
+
 

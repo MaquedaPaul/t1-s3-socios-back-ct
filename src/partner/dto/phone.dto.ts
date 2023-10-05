@@ -10,5 +10,13 @@ export class PhoneDTO {
 
 	@IsNumber()
   type: number;
+
+
+  constructor(areaCode : string, number : string, type : number){
+    this.areaCode = areaCode;
+    this.number = number;
+    this.type = type;
+  }
+
 }
 

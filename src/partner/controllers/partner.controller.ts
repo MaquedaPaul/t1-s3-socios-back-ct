@@ -12,6 +12,11 @@ export class PartnerController {
     return this.partnerService.create(createPartnerDto);
   }
 
+  @Get('cantidad/:quantity')
+  createSeveral(@Param('quantity') quantity: string) {
+    return this.partnerService.createSeveralPartners(+quantity);
+  }
+
   @Get()
   findAll() {
     return this.partnerService.findAll();
