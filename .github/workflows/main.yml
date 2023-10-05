@@ -13,5 +13,5 @@ jobs:
      - name: Build and push dockerimage
        run: |
           docker login ghcr.io -u federicoformoso --password ${{secrets.token}}
-          docker build . --tag ghcr.io/federicoformoso/prueba_back_v3:latest
-          docker push ghcr.io/federicoformoso/prueba_back_v3:latest
+          docker build . --tag ghcr.io/federicoformoso/prueba_back_v3.1:latest
+          docker push ghcr.io/federicoformoso/prueba_back_v3.1:latest
