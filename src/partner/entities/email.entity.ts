@@ -3,7 +3,7 @@ import { Persistence } from "./persistence.entity";
 import { Partner } from "./partner.entity";
 
 
-@Entity('partners-emails')    
+@Entity('partners_emails')    
 export class PartnerEmail extends Persistence{
 
     @Column({ name: 'email', type: 'varchar' })
@@ -11,7 +11,7 @@ export class PartnerEmail extends Persistence{
 
     
     @ManyToOne(() => Partner, (partner) => partner.emails, {nullable: false})
-    @JoinColumn({ name: 'id_parner' })
+    @JoinColumn({ name: 'id_partner_email' })
     partner: Partner;
 
     constructor(email: string){

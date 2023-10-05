@@ -2,7 +2,13 @@ import { Column, Entity,ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "ty
 import { Persistence } from "./persistence.entity";
 import { Partner } from "./partner.entity";
 
-@Entity('phone')
+export enum PhoneType {
+  FAX = 'FAX',
+  OFFICE = 'OFICINA',
+  MOBILE = 'CELULAR'
+}
+
+@Entity('phones')
 export class Phone extends Persistence {
 	@Column('text')
 	areaCode: string;
@@ -10,14 +16,14 @@ export class Phone extends Persistence {
 	@Column('text')
 	number: string;
 
-	@Column({ type: 'enum', enum: ['FAX', 'OFICINA', 'CELULAR'] })
-  	type: string;
+	@Column({ type: 'enum', enum: PhoneType })
+  	type: PhoneType;
 
 	@ManyToOne(() => Partner, (partner) => partner.phones, {nullable: false})
-    @JoinColumn({ name: 'id_parner' })
+	@JoinColumn({ name: 'id_partner_phone' })
 	partner: Partner;
 
-	constructor(areaCode: string, number: string, type: string){
+	constructor(areaCode: string, number: string, type: PhoneType){
 			super();
 			this.areaCode = areaCode;
 			this.number = number;
