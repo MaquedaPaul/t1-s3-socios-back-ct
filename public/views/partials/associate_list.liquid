@@ -1,0 +1,7 @@
+<ul class="lista">
+    {% for partner in partners %}
+        <li class="card">
+            {% render 'associate_card', partner: partner %}
+        </li>
+    {% endfor %}
+</ul>

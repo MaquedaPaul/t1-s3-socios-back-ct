@@ -1,0 +1,10 @@
+<div class="expanded_card">
+    {% render "info_field", label: "Nombre", value: partner.name %}
+    {% render "info_field", label: "Dirección", value: partner.location.street %}
+    {% render "info_field", label: "Correo Electrónico", value: partner.emails[0].email %}
+    {% render "info_field", label: "Teléfono", value: partner.phones[0].phoneNumber %}
+    {% render "info_field", label: "Sitio Web", value: partner.websites[0].website %}
+    {% render "info_field", label: "Membresía", value: partner.memberships[0].name %}
+    {% render "info_field", label: "Inicio de membresía", value: partner.memberships[0].monthDuration %}
+    {% render "info_field", label: "Categoría", value: partner.categories[0].name, className: "categoria" %}
+</div>

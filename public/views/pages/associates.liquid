@@ -1,0 +1,9 @@
+{% layout "layout" %}
+{% block content %}
+<header class="headerContainer">
+  <h1>Nuestros Socios</h1>
+</header>
+<section class="partners">
+  {% render 'associate_list', partners: partners %}
+</section>
+{% endblock %}
