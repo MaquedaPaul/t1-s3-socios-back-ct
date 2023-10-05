@@ -8,7 +8,7 @@ export enum PhoneType {
   MOBILE = 'CELULAR'
 }
 
-@Entity('phone')
+@Entity('phones')
 export class Phone extends Persistence {
 	@Column('text')
 	areaCode: string;
@@ -20,7 +20,7 @@ export class Phone extends Persistence {
   	type: PhoneType;
 
 	@ManyToOne(() => Partner, (partner) => partner.phones, {nullable: false})
-    @JoinColumn({ name: 'id_partner' })
+	@JoinColumn({ name: 'id_partner_phone' })
 	partner: Partner;
 
 	constructor(areaCode: string, number: string, type: PhoneType){
