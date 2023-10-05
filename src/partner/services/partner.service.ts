@@ -221,6 +221,8 @@ export class PartnerService {
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
       updatedAt: new Date(),
+      denomination:updatePartnerDto.denomination,
+      name:updatePartnerDto.name,
       location:updatePartnerDto
     });
 
@@ -246,19 +248,16 @@ export class PartnerService {
 
   
   async remove(id: number) {
-    const deletePartner = await this.partnerRepository.findOneBy({id});
-    
-    if(!deletePartner) 
-      throw new NotFoundException(`No existe el socio con id: ${id}`) ;
-
-    try {
-        await this.partnerRepository.preload({
+      try {
+        const partnerDeleted = await this.partnerRepository.preload({
           id: +id,
-          deleteAt: new Date(),
-          ...deletePartner
-        }); 
+          deleteAt: new Date()
+        });
 
-        await this.partnerRepository.save(deletePartner);
+        if(!partnerDeleted) 
+        throw new NotFoundException(`No existe el socio con id: ${id}`) ;
+
+        await this.partnerRepository.save(partnerDeleted);
 
         const partners = await this.partnerRepository.find({where: {deleteAt: null}});
 
