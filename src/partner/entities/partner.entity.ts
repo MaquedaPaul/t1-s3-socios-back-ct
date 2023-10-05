@@ -18,8 +18,8 @@ import {
 
 
 export enum PartnerType {
-  TYPE1 = 'PLENARY',
-  TYPE2 = 'ASSOCIATE',
+  PLENARY = 'PLENARY',
+  ASSOCIATE = 'ASSOCIATE',
 }
 
 @Entity('partners')
@@ -30,6 +30,9 @@ export class Partner extends Persistence {
 
   @Column({ type: 'varchar' })
   name: string;
+
+  // @Column({ type: 'varchar' })
+  // isActive: boolean;
 
   @Column({ name: 'image' })
   image: string;
@@ -58,6 +61,13 @@ export class Partner extends Persistence {
   @OneToMany(() => PartnerWebsite, (website) => website.partner, {cascade: true, eager: true})
   websites: PartnerWebsite[];
 
+  constructor(denomination: string, name: string, image: string, partnerType: PartnerType) {
+    super();
+    this.denomination = denomination;
+    this.name = name;
+    this.image = image;
+    this.partnerType = partnerType;
+  }
 
   addMembership(membership: ParticularMembership): void {
     this.memberships.push(membership);

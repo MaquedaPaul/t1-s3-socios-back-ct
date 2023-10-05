@@ -18,7 +18,7 @@ export class ParticularMembership extends Persistence{
     value: number;
 
     @ManyToOne(() => Partner, (partner) => partner.memberships, {nullable: false})
-    @JoinColumn({ name: 'id_partner'})
+    @JoinColumn({ name: 'id_partner_membership'})
     partner: Partner;
 
 
