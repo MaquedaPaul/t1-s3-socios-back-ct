@@ -72,7 +72,7 @@ export class PartnerService {
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
       updatedAt: new Date(),
-      ...updatePartnerDto
+      location:updatePartnerDto
     });
 
     if(!partnerUpdate) 
