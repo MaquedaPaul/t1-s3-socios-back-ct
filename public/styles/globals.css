@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary-color: #26354a;
+  --secondary-color: #67b4c0;
+  --secondary-color-hover: #a7c7ce;
+  --grid-gap: calc(11 * 12px);
+  --background-dots: url(/images/background__dots_main.svg);
+  --montserrat-font: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--montserrat-font);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+main {
+  grid-column: 3 / 13;
+  display: grid;
+  grid-template-columns: repeat(10, calc(calc(100% - 108px) / 10));
+  grid-auto-rows: min-content;
+  column-gap: 12px;
+  row-gap: 20px;
+  background-color: white;
+  padding-top: 3.5rem;
+  background: var(--background-dots) no-repeat right;
+}
+
+.general__container {
+  display: grid;
+  grid-template-columns: repeat(12, calc(calc(100vw - var(--grid-gap)) / 12));
+  column-gap: 12px;
+  height: 100vh;
+}

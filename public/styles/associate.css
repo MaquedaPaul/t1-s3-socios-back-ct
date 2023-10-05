@@ -1,0 +1,261 @@
+/* PAGE */
+.headerContainer {
+  margin-bottom   : 5px;
+  grid-column     : 2 / 10;
+  display         : flex;
+  justify-content : space-between;
+  align-items     : flex-end;
+}
+
+.headerContainer h1 {
+  color       : var(--primary-color);
+  font-family : var(--montserrat-font);
+  font-size   : 40px;
+  font-style  : normal;
+  font-weight : 600;
+  line-height : normal;
+}
+
+.partners {
+  grid-column        : 2 / 10;
+  display            : grid;
+  grid-template-rows : auto 1fr auto;
+  width              : 100%;
+  height             : 70vh;
+  padding            : 40px;
+  row-gap            : 12px;
+  border-radius      : 4px;
+  background         : rgba(255, 255, 255, 0.70);
+  box-shadow         : 0 4px 20px 4px rgba(38, 53, 74, 0.70);
+}
+
+.partnersHeader {
+  width                 : 100%;
+  display               : grid;
+  grid-template-columns : repeat(6, calc(calc(100% - calc(5 * 10px)) / 6));
+  column-gap            : 10px;
+}
+
+.addPartner {
+  position         : absolute;
+  width            : 100vw;
+  height           : 100vh;
+  background-color : rgba(38, 53, 74, 0.3);
+  z-index          : 1;
+  left             : 0;
+  top              : 0;
+  transform        : translate(100%);
+  transition       : all .5s ease;
+}
+
+.open {
+  transform : translate(0);
+}
+
+/* ASSOCIATE LIST */
+
+.lista {
+  display          : flex;
+  flex-direction   : column;
+  width            : 100%;
+  max-height       : 70vh;
+  overflow-y       : scroll;
+  padding-right    : 5px;
+  gap              : 1rem;
+  flex-basis       : 100%;
+  background-color : white;
+  font-family      : var(--montserrat-font);
+}
+
+.lista::-webkit-scrollbar {
+  border-radius    : 4px;
+  width            : 7px;
+  background-color : lightgray;
+}
+
+.lista::-webkit-scrollbar-thumb {
+  background-color : rgb(153, 153, 153);
+  border-radius    : 4px;
+}
+
+/* ASSOCIATE CARD */
+
+.card {
+  flex          : 0 0 auto;
+  align-items   : start;
+  width         : 100%;
+  min-height    : 5rem;
+  border        : 1px solid rgba(0, 0, 0, 0.2);
+  border-radius : 2px;
+  color         : #26354A;
+  transition    : border .1s ease;
+}
+
+.card:hover {
+  border : 1px solid var(--secondary-color);
+}
+
+.expanded_card,
+.expanded_inputs {
+  max-height            : 32rem;
+  display               : none;
+  grid-template-columns : repeat(3, 1fr);
+  grid-auto-rows        : min-content;
+  gap                   : 10px;
+  transition            : max-height 400ms ease-out, opacity 400ms ease-out;
+}
+
+.expanded_dad {
+  max-height       : 0;
+  overflow         : hidden;
+  background-color : rgba(103, 180, 192, 0.1);
+  transition       : max-height 400ms ease-out;
+}
+
+details[open] + .expanded_dad {
+  max-height : 32rem;
+  transition : max-height 400ms ease-out;
+}
+
+/* Cuando details está abierto y el checkbox está marcado */
+.expanded_dad:has(input[type="checkbox"]:checked) .expanded_card,
+.expanded_dad:not(:has(input[type="checkbox"]:checked)) .expanded_inputs {
+  display : none;
+}
+
+/* Cuando details está abierto y el checkbox no está marcado */
+.expanded_dad:not(:has(input[type="checkbox"]:checked)) .expanded_card,
+.expanded_dad:has(input[type="checkbox"]:checked) .expanded_inputs {
+  display    : grid;
+  max-height : 32rem;
+}
+
+.card:has(details[open]) {
+  border : 1px solid var(--secondary-color);
+}
+
+/* ASSOCIATE HEADER */
+
+.card_header {
+  display               : grid;
+  grid-template-columns : repeat(6, 1fr);
+  align-items           : center;
+  width                 : 100%;
+  height                : 5rem;
+  padding               : 1em;
+  cursor                : pointer;
+  user-select           : none;
+  transition            : color .1s ease;
+}
+
+.card_header:hover {
+  font-weight : bolder;
+  color       : rgba(103, 180, 192, 1);
+}
+
+.imagen_default {
+  background-color : rgba(116, 134, 158, 0.37);
+  width            : 6em;
+  height           : 3em;
+}
+
+.denominacion {
+  font-size   : 18px;
+  font-weight : 600;
+  grid-column : 2 / 5;
+}
+
+.card_header button {
+  cursor : pointer;
+}
+
+/* ASSOCIATE EXPANDED CARD */
+
+.direccion {
+  grid-column : 2 / 4;
+}
+
+.categoria {
+  grid-column  : 1 / 4;
+  padding-left : 1em;
+}
+
+.select {
+  width          : 20em;
+  display        : flex;
+  flex-direction : column;
+  gap            : 5px;
+  cursor         : pointer;
+}
+
+.option {
+  font-size : 16px;
+}
+
+.tools {
+  display : flex;
+  gap     : 5px;
+  margin  : 1em;
+}
+
+.info {
+  padding        : 1em;
+  display        : flex;
+  flex-direction : column;
+  gap            : 10px;
+}
+
+.info_field {
+  padding : 1.2em;
+}
+
+.info input,
+.info select {
+  font-family      : var(--monserrat);
+  background-color : transparent;
+  border           : none;
+  border-bottom    : 2px solid var(--secondary-color);
+  outline          : none;
+  color            : #17335a;
+}
+
+.info_select {
+  font-family      : var(--monserrat);
+  font-size        : 1rem;
+  background-color : transparent;
+  padding          : .5em;
+  border           : none;
+  border-bottom    : 2px solid var(--secondary-color);
+  outline          : none;
+  color            : #17335a;
+}
+
+.info {
+  display        : flex;
+  flex-direction : column;
+  gap            : 10px;
+}
+
+.info_input {
+  font-family      : var(--monserrat);
+  font-size        : 1rem;
+  background-color : transparent;
+  padding          : .2em;
+  border           : none;
+  border-bottom    : 2px solid var(--secondary-color);
+  outline          : none;
+  color            : #17335a;
+}
+
+.label {
+  font-weight : 600;
+  font-size   : 14px;
+}
+
+.value {
+  color : #535353
+}
+
+.checkbox {
+
+}
