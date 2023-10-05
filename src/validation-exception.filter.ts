@@ -11,11 +11,19 @@ export class ValidationExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof HttpException) {
       const validationErrors = exception.getResponse() as ValidationError[];
-      const messages = validationErrors.map((error) => {
-        const constraints = error.constraints;
-        if (constraints)
-          return constraints[Object.keys(constraints)[0]];
-      });
+      
+      const messages = (Object.keys(validationErrors)[0] == "message") ? validationErrors : validationErrors.map((error) => {
+          const constraints = error.constraints;
+          if (constraints)
+            return constraints[Object.keys(constraints)[0]];
+        });
+
+      // Revisar
+      // const messages = validationErrors.map((error) => {
+      //   const constraints = error.constraints;
+      //   if (constraints)
+      //     return constraints[Object.keys(constraints)[0]];
+      // });
 
       response.status(HttpStatus.BAD_REQUEST).json({
         statusCode: HttpStatus.BAD_REQUEST,
