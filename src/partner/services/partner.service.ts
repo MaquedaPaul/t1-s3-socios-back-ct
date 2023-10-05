@@ -67,7 +67,7 @@ export class PartnerService {
 
    async create(partner: CreatePartnerDto): Promise<boolean>{
      try {
-      this.temporalFunction();
+      // this.temporalFunction();
       const partnerType = this.conversionEnumPartnerType(partner.partnerType);
       const newPartner = this.createBasePartner(partner, partnerType);
       const location = await this.createLocationAndSave(partner); 
@@ -176,7 +176,7 @@ export class PartnerService {
         throw new Error("Tipo de numero no reconocido");
     }
   }
-    private conversionEnumPartnerType(partnerType: string) {
+    private conversionEnumPartnerType(partnerType:string) {
       if (partnerType === '0') {
           return PartnerType.PLENARY;
       }
@@ -290,5 +290,19 @@ export class PartnerService {
 
     return true;
   }
+
+ async createSeveralPartners(quantity : number) {
+    //Logica del seed (crear varios socios)
+    await this.membershipRepository.save(new Membership("Anual", 12));
+    await this.categoryRepository.save(new Category("Supermercado", "Categoria 1"));
+
+    for(let i=1;i<=quantity;i++){
+      this.create(new CreatePartnerDto(`Denominacion ${i}`,`Nombre ${i}`,`Calle ${i}`,`LinkImagen ${i}`,`Direccion ${i}`,`Piso ${i}`,`Departamento ${i}`,`Localidad ${i}`,`Provincia ${i}`,[new PhoneDTO(`CodigoArea ${i}`,`Numero ${i}`, 1)], ["asdfasdf@1.com", "asdfasdf@2.com"], ["www.asdfasdf.com", "www.asdfasdf.com"], "0", [new CategoryDTO("nombre-categoria", `Categoria ${i}`)], 12, 1, "2021-01-01" ))
+
+    }
+    return 'Created the desired amount of test partners.'
+  }
+
+
 }
 
