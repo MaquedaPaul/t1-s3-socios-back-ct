@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePartnerDto } from '../dto/create-partner.dto';
 import { UpdatePartnerDTO } from '../dto/update-partner.dto';
 import { Liquid } from 'liquidjs';
@@ -24,9 +24,10 @@ export class PartnerService {
   private categories: Category[];
   
   private membership: Membership[];
-
+  private readonly logger = new Logger('PartnerService');
  
   constructor(
+
     @InjectRepository(Partner)
     private readonly partnerRepository: Repository<Partner>,
 
@@ -39,7 +40,7 @@ export class PartnerService {
     @InjectRepository(Membership)
     private readonly membershipRepository: Repository<Membership>,
         
-    @InjectRepository(Membership)
+    @InjectRepository(ParticularMembership)
     private readonly particularMembershipRepository: Repository<ParticularMembership>,
 
     @InjectRepository(Category)
@@ -56,7 +57,7 @@ export class PartnerService {
   }
 
    async create(partner: CreatePartnerDto): Promise<boolean>{
-    try {
+     try {
       const partnerType =
         partner.partnerType === '0' ? 'PLENARY' : 'ASSOCIATE';
 
@@ -65,8 +66,10 @@ export class PartnerService {
         name: partner.name,
         image: partner.image,
         partnerType: partnerType as PartnerType,
+        phones: [],
+        memberships: [],
+        websites: []
       });
-
 
       const location = this.locationRepository.create({
         street: partner.street,
@@ -79,6 +82,13 @@ export class PartnerService {
       });
       await this.locationRepository.save(location);
       
+
+
+      newPartner.location = location;
+      newPartner.categories = await this.getCategoriesByIds(partner.categories);
+     
+       await this.partnerRepository.save(newPartner);
+
       partner.phones.forEach(async (phone) => {
 
         const aPhoneType = this.conversionEnumPhoneType(phone.type);
@@ -89,39 +99,51 @@ export class PartnerService {
             type: aPhoneType,
             partner: newPartner,
           });
-        newPhone.partner = newPartner;
-        await this.phoneRepository.save(newPhone);
+
+        
+        //await this.phoneRepository.save(newPhone);
         newPartner.phones.push(newPhone);
+        
       });
 
-
+       const testMembership = new Membership("test", 12);
+       const testMembership2 = new Membership("test", 6);
+       const testMembership3 = new Membership("test", 24);
+       this.membershipRepository.save(testMembership);
+       this.membershipRepository.save(testMembership2);
+       this.membershipRepository.save(testMembership3);
       const membership = await this.membershipRepository.findOneBy({
         id: partner.membershipID
       }
       );
-
+       
+      const [day, month, year] = partner.startDate.split('-').map(Number);
+      const startDate = new Date(year, month - 1, day); // Meses en JavaScript se cuentan desde 0 (enero) hasta 11 (diciembre)
       const particularMembership = this.particularMembershipRepository.create({
         membership: membership,
-        startDate: new Date(partner.startDate),
+        startDate: startDate,
         value: partner.membershipValue,
         partner: newPartner,
       });
 
-      await this.membershipRepository.save(particularMembership);
+      //await this.membershipRepository.save(particularMembership);
       newPartner.memberships.push(particularMembership);
 
-      newPartner.location = location;
-      newPartner.categories = await this.getCategoriesByIds(partner.categories);
+
       newPartner.emails = partner.emails.
         map(email => new PartnerEmail(email));
-      //newPartner.emails.forEach(email => email.partner = newPartner);
+      newPartner.emails.forEach(email => email.partner = newPartner);
       newPartner.websites = partner.websites.map(website => new PartnerWebsite(website));
-      //newPartner.websites.forEach(website => website.partner = newPartner);
-      await this.partnerRepository.save(newPartner);
+      newPartner.websites.forEach(website => website.partner = newPartner);
+
+      await this.phoneRepository.save(newPartner.phones);
+      await this.particularMembershipRepository.save(newPartner.memberships);
+      await this.locationRepository.save(newPartner.location);
       const partners = await this.partnerRepository.find();
       return this.dataPrint(partners,``, "home")  
     } catch (error) {
-      throw new Error('Error al crear el socio, por favor inténtelo más tarde');
+      this.logger.error(error);
+       throw new InternalServerErrorException(error.message);
     }
   // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
 
