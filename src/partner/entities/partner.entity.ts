@@ -58,6 +58,13 @@ export class Partner extends Persistence {
   @OneToMany(() => PartnerWebsite, (website) => website.partner, {cascade: true, eager: true})
   websites: PartnerWebsite[];
 
+  constructor(denomination: string, name: string, image: string, partnerType: PartnerType) {
+    super();
+    this.denomination = denomination;
+    this.name = name;
+    this.image = image;
+    this.partnerType = partnerType;
+  }
 
   addMembership(membership: ParticularMembership): void {
     this.memberships.push(membership);
