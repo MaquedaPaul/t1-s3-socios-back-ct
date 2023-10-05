@@ -24,9 +24,8 @@ export class PartnerService {
   private membership: Membership[];
 
   private readonly logger = new Logger('PartnerService');
- 
-  constructor(
 
+  constructor(
     @InjectRepository(Partner)
     private readonly partnerRepository: Repository<Partner>,
 
@@ -44,10 +43,7 @@ export class PartnerService {
 
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
-  
-
   ) {
-
 
     this.engine = new Liquid({
       root: ['public/views/', 'public/views/partials/', 'public/views/partials/table/'],
@@ -64,8 +60,8 @@ export class PartnerService {
       this.membershipRepository.save(testMembership3);
   }
 
-   async create(partner: CreatePartnerDto): Promise<boolean>{
-     try {
+  async create(partner: CreatePartnerDto): Promise<boolean>{
+    try {
       this.temporalFunction();
       const partnerType = this.conversionEnumPartnerType(partner.partnerType);
       const newPartner = this.createBasePartner(partner, partnerType);
@@ -77,11 +73,11 @@ export class PartnerService {
       this.createPhones(partner.phones, newPartner);
       this.createParticularMembership(partner, newPartner);
       await this.partnerRepository.save(newPartner);
-//
+
       this.createEmails(partner, newPartner);
       this.createWebsites(partner, newPartner);
 
-       await this.partnerRepository.save(newPartner);
+      await this.partnerRepository.save(newPartner);
        //it is necessary that the partner is saved after modifications (2 modifications in this case)
        //Otherwise it could break the maximum stack
       
@@ -89,7 +85,7 @@ export class PartnerService {
       return this.dataPrint(partners,``, "home")  
     } catch (error) {
       this.logger.error(error);
-       throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   // TODO busca categorias -> atrubuto privado, busca membresias -> atrubuto privado, busca socios
 
@@ -99,7 +95,7 @@ export class PartnerService {
   //     membership,
   //     message: "" 
   //  });
-   }//
+  }//
   private createWebsites(partner: CreatePartnerDto, newPartner: Partner) {
       newPartner.websites = partner.websites.map(website => new PartnerWebsite(website));
       newPartner.websites.forEach(website => website.partner = newPartner);
@@ -176,24 +172,18 @@ export class PartnerService {
     }
   }
     private conversionEnumPartnerType(partnerType: string) {
-      if (partnerType === '0') {
+      if (partnerType === '0') 
           return PartnerType.PLENARY;
-      }
-      else if (partnerType === '1') {
+      if (partnerType === '1') 
         return PartnerType.ASSOCIATE;
-      } else {
-        throw new Error("Tipo de socio no reconocido");
-      }
-
+      throw new Error("Tipo de socio no reconocido");
   }
-  
+
     findOne(arg0: number) {
     throw new Error('Method not implemented.');
   }
-  
 
     // TODO busca categorias, busca membresias, busca socios
-
 
   async findAll() {
     try {
@@ -206,12 +196,9 @@ export class PartnerService {
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
- 
-
   }
 
   async getCategoriesByIds(idsCategories: CategoryDTO[]): Promise<Category[]> {
-    // Utiliza el método 'findByIds' del repositorio para buscar categorías por sus IDs
     return this.categoryRepository.findBy({ id: In(idsCategories) });
   }
 
