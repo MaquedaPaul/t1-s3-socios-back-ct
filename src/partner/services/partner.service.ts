@@ -18,13 +18,12 @@ import { PhoneDTO } from '../dto/phone.dto';
 @Injectable()
 export class PartnerService {
 
- 
-
   private readonly engine:Liquid
 
   private categories: Category[];
   
   private membership: Membership[];
+
   private readonly logger = new Logger('PartnerService');
  
   constructor(
@@ -187,25 +186,29 @@ export class PartnerService {
         throw new Error("Tipo de socio no reconocido");
       }
 
-    
   }
   
     findOne(arg0: number) {
     throw new Error('Method not implemented.');
   }
-  async findAll() {
-    
-    this.categories = await this.categoryRepository.find();
-    this.membership = await this.membershipRepository.find();
+  
 
     // TODO busca categorias, busca membresias, busca socios
 
 
-    // return await this.engine.renderFile('home', {partners, 
-    //                                              categories,
-    //                                              membership,
-    //                                              message: "" 
-    //                                           });
+  async findAll() {
+    try {
+      const partners = await this.partnerRepository.find({where: {deleteAt: null}});
+      this.categories = await this.categoryRepository.find();
+      this.membership = await this.membershipRepository.find();
+      
+      const renderedData = await this.dataPrint(partners, "Socios", "home");
+      return renderedData;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+ 
+
   }
 
   async getCategoriesByIds(idsCategories: CategoryDTO[]): Promise<Category[]> {
@@ -217,8 +220,8 @@ export class PartnerService {
 
     const partnerUpdate = await this.partnerRepository.preload({
       id: +id,
-      ...updatePartnerDto
-  
+      updatedAt: new Date(),
+      location:updatePartnerDto
     });
 
     if(!partnerUpdate) 
@@ -230,32 +233,62 @@ export class PartnerService {
         throw new InternalServerErrorException(error.message) ;
     }
     
-    const partners = await this.partnerRepository.find();
+    const partners = await this.partnerRepository.find({where: {deleteAt: null}});
 
     let message : string[] = [];
 
     message.push(`Se actualizo el socio con id: ${id}`);
     
     return this.dataPrint(partners, `Se actualizo el socio con id: ${id}`, "home")  
-                
   }
+
 
 
   
-  remove(id: number) {
-    return `This action removes a #${id} partner`;
+  async remove(id: number) {
+    const deletePartner = await this.partnerRepository.findOneBy({id});
+    
+    if(!deletePartner) 
+      throw new NotFoundException(`No existe el socio con id: ${id}`) ;
+
+    try {
+        await this.partnerRepository.preload({
+          id: +id,
+          deleteAt: new Date(),
+          ...deletePartner
+        }); 
+
+        await this.partnerRepository.save(deletePartner);
+
+        const partners = await this.partnerRepository.find({where: {deleteAt: null}});
+
+        return this.dataPrint(partners, `Se elimino el socio con id: ${id}`, "home")
+    } catch (error) {
+        throw new InternalServerErrorException(error.message) ;
+    } 
+
+   
   }
-
-
 
   private async dataPrint(partners: Partner[], message: string,view: string){
     return await this.engine.renderFile(view, {partners, 
       categories: this.categories,
       memberships: this.membership,
       message
-   }); 
-  
+  }); 
   }
-  
+
+  async deletePartnerById(id: number): Promise<boolean> {
+    const partner = await this.partnerRepository.findOne({ where: { id } });
+
+    if (!partner) 
+      throw new NotFoundException(`Socio con ID ${id} no encontrado.`);
+
+    partner.deleteAt = new Date();
+
+    await this.partnerRepository.save(partner);
+
+    return true;
+  }
 }
 

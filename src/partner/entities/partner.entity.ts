@@ -31,6 +31,9 @@ export class Partner extends Persistence {
   @Column({ type: 'varchar' })
   name: string;
 
+  // @Column({ type: 'varchar' })
+  // isActive: boolean;
+
   @Column({ name: 'image' })
   image: string;
 
