@@ -138,7 +138,7 @@ export class PartnerService {
         newPartner.phones.push(newPhone);
       });
   }
-  private createLocationAndSave(partner: CreatePartnerDto) {
+  private async createLocationAndSave(partner: CreatePartnerDto) {
         const location = this.locationRepository.create({
         street: partner.street,
         streetAddress: partner.streetAddress,
@@ -147,7 +147,7 @@ export class PartnerService {
         department: partner.department,
         province: partner.province,
         });
-    this.locationRepository.save(location);
+    await this.locationRepository.save(location);
     return location;
   }
   private createBasePartner(partner: CreatePartnerDto, partnerType: PartnerType) {
