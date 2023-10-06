@@ -12,10 +12,11 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     })
   );
-
+  
+  app.use(express.static('public'));
   await app.listen(3000);
 
   // Configura el middleware express.static para servir archivos estáticos desde /public
-  app.use(express.static('public'));
+  
 }
 bootstrap();

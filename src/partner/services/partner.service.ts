@@ -197,14 +197,30 @@ export class PartnerService {
   // TODO busca categorias, busca membresias, busca socios
 
   async findAll() {
+  
+    
     try {
       const partners = await this.partnerRepository.find({
         where: { deleteAt: null },
       });
-      this.categories = await this.categoryRepository.find();
-      this.membership = await this.membershipRepository.find();
+    
 
-      const renderedData = await this.dataPrint(partners, 'Socios', 'home');
+      let context = {
+        user: 'guest',
+        title: 'socios',
+        path: '/socios',
+        pages: 5,
+        activePage: 1,
+        categories: await this.categoryRepository.find(),
+        memberships:await this.membershipRepository.find(),
+        parnerTypes: [
+          { id: 1, name: 'ASSOCIATE' },
+          { id: 2, name: 'PLENARY' },
+        ],
+        partners,
+      };
+
+      const renderedData = await this.dataPrint(context, 'Socios', 'base');
       return renderedData;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
@@ -274,12 +290,10 @@ export class PartnerService {
     }
   }
 
-  private async dataPrint(partners: Partner[], message: string, view: string) {
+  private async dataPrint(context: any, message: string, view: string) {
     return await this.engine.renderFile(view, {
-      partners,
-      categories: this.categories,
-      memberships: this.membership,
-      message,
+      context,
+      message
     });
   }
 

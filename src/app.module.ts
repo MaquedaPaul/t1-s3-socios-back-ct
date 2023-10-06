@@ -12,7 +12,7 @@ import { APP_FILTER } from '@nestjs/core';
     
     TypeOrmModule.forRoot({
       ///////////URL DESERIALIZADA (NO ME FUNCO)///////////
-      
+      /*
       type: 'mysql',
       host: 'dokku-mariadb-acc-squad-t1s3-db-dev',
       port: 3306,
@@ -21,7 +21,7 @@ import { APP_FILTER } from '@nestjs/core';
       password: 'Fr3a951',      
       autoLoadEntities: true,
       synchronize: true,
-      
+      */
      
       ///////////CON URL DIRECTAMENTE///////////
       /*
@@ -30,14 +30,14 @@ import { APP_FILTER } from '@nestjs/core';
       */
      
      ///////////PARA CONECTARSE EN LOCALHOST///////////
-      /*type: 'mysql',
+      type: 'mysql',
       host: 'localhost',
       port: 3306,
       database: 'partners',
       username: 'root',
       password: '',      
       autoLoadEntities: true,
-      synchronize: true,*/
+      synchronize: true,
     })  
   ],
   controllers: [AppController],

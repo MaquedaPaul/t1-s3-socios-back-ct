@@ -1,4 +1,4 @@
-<form method="POST" action="/socios/{{ partner.id }}" class="expanded_inputs">
+<form method="PATCH" action="/socios/{{ partner.id }}" class="expanded_inputs">
     {% render "form__field", label: "Nombre", name: "nombre", value: partner.name %}
     {% render "form__field", label: "Dirección", name: "direccion", value: partner.location.street, className: "direccion" %}
     {% render "form__field", label: "Correo Electrónico", name: "correo", value: partner.emails[0].email %}
