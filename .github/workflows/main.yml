@@ -11,6 +11,7 @@ jobs:
      - uses: actions/checkout@v4
      - name: Build and push dockerimage
        run: |
+          COMMIT_HASH=$(git rev-parse HEAD)
           docker login ghcr.io -u federicoformoso --password ${{secrets.token}}
-          docker build . --tag ghcr.io/federicoformoso/prueba_back:latest
-          docker push ghcr.io/federicoformoso/prueba_back:latest
+          docker build . --tag ghcr.io/federicoformoso/prueba_back:$COMMIT_HASH
+          docker push ghcr.io/federicoformoso/prueba_back:$COMMIT_HASH
