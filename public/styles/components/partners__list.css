@@ -1,0 +1,24 @@
+.partners__list {
+  display         : flex;
+  flex-direction  : column;
+  width           : 100%;
+  height          : 100%;
+  max-height      : 36.6rem;
+  overflow-y      : scroll;
+  padding-right   : 5px;
+  gap             : 1rem;
+  flex-basis      : 100%;
+  background-color: white;
+  font-family     : var(--montserrat-font);
+}
+
+.partners__list::-webkit-scrollbar {
+  border-radius   : 4px;
+  width           : 7px;
+  background-color: lightgray;
+}
+
+.partners__list::-webkit-scrollbar-thumb {
+  background-color: rgb(153, 153, 153);
+  border-radius   : 4px;
+}

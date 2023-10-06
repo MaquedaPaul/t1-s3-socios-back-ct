@@ -1,0 +1,88 @@
+.partner__card {
+  flex         : 0 0 auto;
+  align-items  : start;
+  width        : 100%;
+  min-height   : 5rem;
+  border       : 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  color        : #26354A;
+  transition   : border .1s ease;
+  list-style   : none;
+}
+
+.partner__card:hover {
+  border: 1px solid var(--secondary-color);
+}
+
+.expanded_card,
+.expanded_inputs {
+  max-height           : 32rem;
+  display              : none;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows       : min-content;
+  gap                  : 10px;
+  transition           : max-height 400ms ease-out, opacity 400ms ease-out;
+}
+
+.expanded_dad {
+  max-height      : 0;
+  overflow        : hidden;
+  background-color: rgba(103, 180, 192, 0.1);
+  transition      : max-height 400ms ease-out;
+}
+
+details[open]+.expanded_dad {
+  max-height: 32rem;
+  transition: max-height 400ms ease-out;
+}
+
+/* Cuando details está abierto y el checkbox está marcado */
+.expanded_dad:has(input[type="checkbox"]:checked) .expanded_card,
+.expanded_dad:not(:has(input[type="checkbox"]:checked)) .expanded_inputs {
+  display: none;
+}
+
+/* Cuando details está abierto y el checkbox no está marcado */
+.expanded_dad:not(:has(input[type="checkbox"]:checked)) .expanded_card,
+.expanded_dad:has(input[type="checkbox"]:checked) .expanded_inputs {
+  display   : grid;
+  max-height: 32rem;
+}
+
+.card:has(details[open]) {
+  border: 1px solid var(--secondary-color);
+}
+
+/*CARD HEADER*/
+.card_header {
+  display              : grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items          : center;
+  width                : 100%;
+  height               : 5rem;
+  padding              : 1em;
+  cursor               : pointer;
+  user-select          : none;
+  transition           : color .1s ease;
+}
+
+.card_header:hover {
+  font-weight: bolder;
+  color      : rgba(103, 180, 192, 1);
+}
+
+.imagen_default {
+  background-color: rgba(116, 134, 158, 0.37);
+  width           : 6em;
+  height          : 3em;
+}
+
+.denominacion {
+  font-size  : 18px;
+  font-weight: 600;
+  grid-column: 2 / 5;
+}
+
+.card_header button {
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+{% assign click = false %}
+<details>
+    <summary class="card_header">
+        <div class="imagen_default"></div>
+        <div class="denominacion">{{ partner.denomination }}</div>
+        <div>{{ partner.partnerType }}</div>
+    </summary>
+</details>
+<div class="expanded_dad">
+    {% render "partner__info", partner: partner %}
+    {% render "partner__inputs", partner: partner %}
+    <label class="checkbox">
+        Editar
+        <input type="checkbox" style="padding: 1em; width: fit-content;">
+    </label>
+</div>

@@ -1,0 +1,106 @@
+@import url('../components/partners__list.css');
+@import url('../components/partner__card.css');
+@import url('../components/expanded__card.css');
+
+.partners__title {
+  grid-column : 2/5;
+  grid-row    : 3/4;
+  align-self  : center;
+  justify-self: self-start;
+  color       : var(--primary-color);
+  font-family : var(--montserrat-font);
+  font-size   : 40px;
+  font-style  : normal;
+  font-weight : 600;
+  line-height : normal;
+}
+
+#showForm {
+  grid-column : 8/10;
+  grid-row    : 3/4;
+  align-self  : self-end;
+  justify-self: self-end;
+}
+
+.partners {
+  grid-column       : 2 / 10;
+  grid-row          : 4 / 12;
+  background-color  : red;
+  display           : grid;
+  grid-template-rows: auto 1fr auto;
+  padding           : 40px;
+  row-gap           : 12px;
+  border-radius     : 4px;
+  background        : rgba(255, 255, 255, 0.70);
+  box-shadow        : 0 4px 20px 4px rgba(38, 53, 74, 0.70);
+}
+
+.partners__header {
+  width                : 100%;
+  display              : grid;
+  grid-template-columns: repeat(6, calc(calc(100% - calc(5 * 10px)) / 6));
+  column-gap           : 10px;
+  place-content        : center;
+}
+
+.paginationContainer {
+  display        : flex;
+  align-items    : center;
+  justify-content: flex-end;
+  gap            : 10px;
+}
+
+.paginationItem {
+  list-style: none;
+}
+
+.paginationButton {
+  display         : flex;
+  padding         : 5px 10px;
+  justify-content : center;
+  align-items     : center;
+  gap             : 10px;
+  background-color: transparent;
+  border-radius   : 4px;
+  border          : 1px solid #536073;
+  color           : #4B5A6E;
+  font-family     : var(--montserrat-font);
+  font-size       : 18px;
+  font-style      : normal;
+  font-weight     : 500;
+  line-height     : normal;
+  letter-spacing  : 1px;
+  cursor          : pointer;
+  text-decoration : none;
+}
+
+.active .paginationButton {
+  color       : var(--primary-color);
+  border-width: 3px;
+  border-color: var(--primary-color);
+  font-weight : 600;
+}
+
+.filter__categories {
+  grid-column: 6/7;
+  width      : 100%;
+  align-self : center;
+}
+
+.filter__partners-types {
+  grid-column: 4/5;
+  width      : 100%;
+  align-self : center;
+}
+
+.filter__membership-types {
+  grid-column: 5/6;
+  width      : 100%;
+  align-self : center;
+}
+
+.filter__categories select,
+.filter__partners-types select,
+.filter__membership-types select {
+  width: 100%
+}

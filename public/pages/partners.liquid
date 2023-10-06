@@ -1,0 +1,28 @@
+{% include 'Button' class:'primary', source:'./images/add__icon.svg', text:'Crear', id:'showForm' %}
+
+
+<h1 class="partners__title">Nuestros Socios</h1>
+
+<section class="partners">
+  <header class="partners__header">
+  {% include 'input', type:'select', name:'Tipos de socios', label:'Tipos de socios', categories:parnerTypes, className:'black filter__partners-types'%}
+  {% include 'input', type:'select', name:'Tipos de membresia', label:'Tipo de membresia', categories:parnerTypes, className:'black filter__membership-types'%}
+  {% include 'input', type:'select', name:'category', label:'categorias', categories:categories, className:'black filter__categories'%}
+  </header>
+  {% render 'components/partners__list', partners: partners %}
+  <footer class="partners__footer">
+    <ul class="paginationContainer">
+      {% for i in (0 .. pages)%}
+        {%- if activePage == i -%}
+          <li class="paginationItem active">
+        {%- else -%}
+          <li class="paginationItem">
+        {%- endif -%}
+          <a class="paginationButton" href="/socios?activePage={{i | plus : 1}}">
+            {{i | plus : 1}}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </footer>
+</section>
