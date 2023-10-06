@@ -13,5 +13,5 @@ jobs:
        run: |
           COMMIT_HASH=$(git rev-parse HEAD)
           docker login ghcr.io -u fedealvarenga --password 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
-          docker build . --tag ghcr.io/fedealvarenga/prueba_frontv1:$COMMIT_HASH
-          docker push ghcr.io/fedealvarenga/prueba_frontv1:$COMMIT_HASH
+          docker build . --tag ghcr.io/fedealvarenga/prueba_frontv2:$COMMIT_HASH
+          docker push ghcr.io/fedealvarenga/prueba_frontv2:$COMMIT_HASH
