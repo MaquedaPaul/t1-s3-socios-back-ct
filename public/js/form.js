@@ -12,31 +12,39 @@ function mostrarForm(ev) {
     ev.preventDefault();
     const formElem = document.querySelector('.creationForm');
     const formData = new FormData(formElem)
-    const data = Object.fromEntries(formData)
+    const objMod = transformData(formData)
+    console.log(objMod) 
+    const data = JSON.stringify(objMod)
+    //const data = Object.fromEntries(objMod)
+    console.log(data)
     fetch('/socios',{
         method: 'POST',
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: JSON.stringify(data)
         
     })
-
 }
 function transformData(data){
+  const phone = {
+    "areaCode": "",
+    "number": "",
+    "type": ""
+  };
   const objeto = {
-    "denomination": "Denominación del socio",
-    "name": "Nombre del socio",
-    "street": "Calle principal",
-    "image": "URL de la imagen",
-    "streetAddress": "Dirección detallada",
-    "floor": "Piso",
-    "apartment": "Número de apartamento",
-    "department": "Departamento",
-    "province": "Provincia",
+    "denomination": "",
+    "name": "",
+    "street": "",
+    "image": "",
+    "streetAddress": "",
+    "floor": "",
+    "apartment": "",
+    "department": "",
+    "province": "",
     "phones": [],
-    "emails": [""],
-    "webSites": [""],
-    "partnerType": "0",
-    "categories": [1],
+    "emails": [],
+    "webSites": [],
+    "partnerType": "",
+    "categories": [],
     "value": 100.0,
     "membershipID": 1,
     "startDate": "2023-09-20"
@@ -45,19 +53,25 @@ function transformData(data){
 for (const [clave, valor] of data.entries()) {
   objeto[clave] = valor;
 };
+objeto["phones"].push(constructorObj (phone,data));
+objeto["emails"].push(data.get('email'));
+objeto["webSites"].push(data.get('webSite'))
+delete objeto.areaCode;
+delete objeto.number;
+delete objeto.type;
+delete objeto.webSite;
+delete objeto.email;
 
+
+return objeto;
 }
-const phone = {
-  "areaCode": "011",
-  "number": "123456789",
-  "type": 0
-};
-function constructorObj (objeto,data,array){
+
+function constructorObj (objeto,data){
   
   for (const [clave, valor] of data.entries()) {
-    objeto[clave] = valor;
+    if (objeto.hasOwnProperty(clave)) {
+      objeto[clave] = valor;
+    }
   }
-
-  
-  return objeto
+ return objeto;
 }
