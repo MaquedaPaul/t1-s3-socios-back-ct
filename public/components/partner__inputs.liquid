@@ -1,0 +1,11 @@
+<form method="POST" action="/socios/{{ partner.id }}" class="expanded_inputs">
+    {% render "form__field", label: "Nombre", name: "nombre", value: partner.name %}
+    {% render "form__field", label: "Dirección", name: "direccion", value: partner.location.street, className: "direccion" %}
+    {% render "form__field", label: "Correo Electrónico", name: "correo", value: partner.emails[0].email %}
+    {% render "form__field", label: "Teléfono", name: "telefono", value: partner.phones[0].phoneNumber %}
+    {% render "form__field", label: "Sitio Web", name: "sitioWeb", value: partner.websites[0].website %}
+    {% render "form__field", label: "Membresía", name: "membresia", value: partner.memberships[0].name %}
+    {% render "form__field", label: "Inicio de membresía", name: "fechaDeInicio", value: partner.memberships[0].monthDuration %}
+    {% render "form__field", label: "Categorías", name: "categorias", value: partner.categories[0].name, className: "categoria" %}
+    <input style="padding: 1em; width: fit-content;" type="submit" value="Enviar">
+</form>

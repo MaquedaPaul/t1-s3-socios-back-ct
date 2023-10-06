@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copal - {{title}}</title>
+  <link rel="stylesheet" href="../styles/base.css">
+  {%if path == '/socios'%}
+    <link rel="stylesheet" href="../styles/pages/partners.css">
+    <link rel="stylesheet" href="../styles/pages/registrationForm.css">
+  {%endif%}
+</head>
+<body class="general__container">
+  <aside class="menu__general_container">
+    <nav class="menu">
+      <div class="menu__container">
+        <a class="menu__logo" href="/">
+          <img src="/images/menu__logo.svg" alt="Logo de copal"/>
+        </a>
+      </div>
+      <div class="menu__container">
+        <p class="menu__user">
+          Hello,
+          <span>{{user}}</span>
+        </p>
+      </div>
+      <ul class="menu__options" id="menu__container">
+        <li>
+          <a href="/socios">Socios</a>
+        </li>
+        <li>
+          <a href="/">Otro</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    {% if path == '/' %}
+      {%render "pages/home" user:user%}
+    {%endif%}
+    {% if path == '/socios' %}
+      {%render "pages/partners" user:user, pages:pages, activePage:activePage, partners:partners, categories:categories, parnerTypes:parnerTypes%}
+    {%endif%}
+  </main>
+  {% include 'pages/registrationForm' categories:categories, parnerTypes:parnerTypes %}
+
+  <script src="../js/globals.js"></script>
+  {% if path == '/socios' %}
+    <script src="../js/pages/partners.js"></script>
+    <script src="../js/pages/form.js"></script>
+  {%endif%}
+</body>
+</html>

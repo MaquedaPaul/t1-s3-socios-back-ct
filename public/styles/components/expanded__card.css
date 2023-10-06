@@ -1,0 +1,86 @@
+.direccion {
+  grid-column: 2 / 4;
+}
+
+.categoria {
+  grid-column : 1 / 4;
+  padding-left: 1em;
+}
+
+.select {
+  width         : 20em;
+  display       : flex;
+  flex-direction: column;
+  gap           : 5px;
+  cursor        : pointer;
+}
+
+.option {
+  font-size: 16px;
+}
+
+.tools {
+  display: flex;
+  gap    : 5px;
+  margin : 1em;
+}
+
+.info {
+  padding       : 1em;
+  display       : flex;
+  flex-direction: column;
+  gap           : 10px;
+}
+
+.info_field {
+  padding: 1.2em;
+}
+
+.info input,
+.info select {
+  font-family     : var(--monserrat);
+  background-color: transparent;
+  border          : none;
+  border-bottom   : 2px solid var(--secondary-color);
+  outline         : none;
+  color           : #17335a;
+}
+
+.info_select {
+  font-family     : var(--monserrat);
+  font-size       : 1rem;
+  background-color: transparent;
+  padding         : .5em;
+  border          : none;
+  border-bottom   : 2px solid var(--secondary-color);
+  outline         : none;
+  color           : #17335a;
+}
+
+.info {
+  display       : flex;
+  flex-direction: column;
+  gap           : 10px;
+}
+
+.info_input {
+  font-family     : var(--monserrat);
+  font-size       : 1rem;
+  background-color: transparent;
+  padding         : .2em;
+  border          : none;
+  border-bottom   : 2px solid var(--secondary-color);
+  outline         : none;
+  color           : #17335a;
+}
+
+.label {
+  font-weight: 600;
+  font-size  : 14px;
+}
+
+.value {
+  color: #535353
+}
+
+.checkbox {}
