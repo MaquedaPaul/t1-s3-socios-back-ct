@@ -1,8 +1,8 @@
-<div id="addAssociate" class="creatioContent">
+<div id="addAssociate" class="creatioContent hide">
     <h1 class="creationTitle">
         Cuéntanos sobre el nuevo integrante
     </h1>
-    <form class="creationForm" action="/socios" method="post">
+    <form class="creationForm">
         {% include 'input',name:"denomination",label:'denominación' %}
         {% include 'input',name:"name",label:'nombre' %}
 
@@ -29,10 +29,9 @@
             <div class="directionInput">
                 {% include 'input', type:'text', name:"province",label:'provincia' %}
             </div>
-            <button onClick="">Guardar</button>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="phone-fieldset">
             <h3 class="fieldLabel">Telefono:</h3>
             <div class="phoneCodArea">
                 {% include 'input', type:'text', name:"areaCode",label:'cod.Area' %}
@@ -43,7 +42,7 @@
             <div class="phoneType">
                 {% include 'input', type:'text', name:"type",label:'tipo.Telefono' %}
             </div>
-            <button onClick="">Otro Numero</button>
+
         </fieldset>
 
         {% include 'input', type:'email', name:"emails",label:'correos electrónico' %}
@@ -52,8 +51,8 @@
         {% include 'input', type:'radio', name:'parnerType', label:'tipo de socio', parnerTypes:parnerTypes %}
         {% include 'input', type:'date', name:"startDate",label:'inicio de asociación' %}
         <footer>
-            {% include 'Button' class:'primary', text:'guardar', action:'' %}
-            {% include 'Button' class:'secondary', source:'./img/add__icon.svg', text:'cancelar', action:'' %}
+            {% include 'Button' class:'primary', text:'guardar' type:'submit' %}
+            {% include 'Button' id:'closeForm', class:'secondary', text:'cancelar'%}
         </footer>
     </form>
 </div>
