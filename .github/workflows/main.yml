@@ -2,7 +2,7 @@ name: prueba
 on:
   push:
     branches:
-      - 'main'
+      - 'front/develop'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,5 +13,5 @@ jobs:
        run: |
           COMMIT_HASH=$(git rev-parse HEAD)
           docker login ghcr.io -u federicoformoso --password ${{secrets.token}}
-          docker build . --tag ghcr.io/federicoformoso/prueba_back:$COMMIT_HASH
-          docker push ghcr.io/federicoformoso/prueba_back:$COMMIT_HASH
+          docker build . --tag ghcr.io/federicoformoso/prueba_frontv1:$COMMIT_HASH
+          docker push ghcr.io/federicoformoso/prueba_frontv1:$COMMIT_HASH
