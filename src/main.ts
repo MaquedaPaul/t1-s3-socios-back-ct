@@ -14,7 +14,8 @@ async function bootstrap() {
   );
   
   app.use(express.static('public'));
-  await app.listen(3000);
+  await app.listen(80); //config para deploy
+  //await app.listen(3000); config para local
 
   // Configura el middleware express.static para servir archivos estáticos desde /public
   
